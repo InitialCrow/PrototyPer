@@ -12,6 +12,10 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/toolbox.css" rel="stylesheet">
+    <link href="/css/pannel.css" rel="stylesheet">
+
+    <link href="/css/main.css" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -77,11 +81,15 @@
                 </div>
             </div>
         </nav>
-
         @yield('content')
     </div>
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <script src="/js/main.js"></script>
+    <script>
+        app.init();
+
+    </script>
 </body>
 </html>

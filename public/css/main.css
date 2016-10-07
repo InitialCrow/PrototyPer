@@ -1,0 +1,19 @@
+/* put your custom css here */
+
+.container-fluid::after, .container-fluid::before, .container::after, .container::before, .row::after, .row::before{
+	display: none;
+}
+.navbar{
+	margin : inherit !important;
+}
+.mode-list {
+	margin-left: 100px;
+	text-align: center;
+}
+.mode-list li{
+
+	display: inline-block;
+}
+.mode-btn{
+
+}
