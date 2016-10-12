@@ -86,7 +86,13 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <!-- class -->
+    <script src="/js/class/ToolBox.js"></script>
+    <script src="/js/class/Shape.js"></script>
+    <script src="/js/class/Square.js"></script>
+    <!-- Scripts -->
     <script src="/js/main.js"></script>
+    <script src="/js/toolBox.js"></script>
     <script>
         app.init();
 

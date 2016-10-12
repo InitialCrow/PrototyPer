@@ -5,8 +5,27 @@
 	background-color: #333;
 	
 }
+.sub-tool{
+	
+	animation : hello 0.5s;
+	padding: 20px 0;
+	text-align: center;
+	background-color: #333;
+	max-width: 100px;
+	
+}
 .toolBox .btn{
 	display: block;
 	width: 100px;
 	margin : 20px auto;
+}
+@keyframes hello{
+	0%{
+		opacity: 0;
+		left: -100px;
+	}
+	100%{
+		opacity: 1;
+		left: 0;
+	}
 }
