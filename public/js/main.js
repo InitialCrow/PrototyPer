@@ -15,7 +15,6 @@
 			$('.panel-body').css('height',height-250);
 
 		},
-		
 	}
 	ctx.app = app;
 	var self = app;

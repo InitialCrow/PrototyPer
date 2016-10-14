@@ -13,8 +13,8 @@
             <div class="panel-heading">Draw your WireFrame</div>
 
             <div class="panel-body">
-                <iframe class=" panel-work"src="" allowfullscreen frameborder=0>
-                    
+                <iframe class= "panel-work" src="" allowfullscreen frameborder=0>
+             
                 </iframe>
             </div>
         </div>

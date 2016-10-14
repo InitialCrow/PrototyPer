@@ -7,5 +7,6 @@ Square.protype = Object.create(Shape.prototype);
 
 
 Square.prototype.draw = function(color){
-
+	var self = this;
+	console.log(self);
 }

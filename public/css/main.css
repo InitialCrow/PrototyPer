@@ -6,8 +6,13 @@
 .navbar{
 	margin : inherit !important;
 }
+
+.row{
+
+	margin : 0 auto;
+}
 .mode-list {
-	margin-left: 100px;
+	float: right;
 	text-align: center;
 }
 .mode-list li{

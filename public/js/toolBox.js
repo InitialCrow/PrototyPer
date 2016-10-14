@@ -4,7 +4,9 @@
 		family :{
 			shape : new Shape(),
 			
+			
 		},
+
 		selected : {
 			family : null,
 			tool : null,
@@ -12,6 +14,7 @@
 		init:function(){
 			//enable selectable tools
 			this.select();
+			this.draw();
 		},
 		select : function(){
 			var $tool = $('.tool');
@@ -27,9 +30,21 @@
 
 				}
 				self.box.show_sub('.toolBox', self.selected.family);
-				console.log(self.selected);
-				// self.box.select_family($family);
+
+				console.log(self.family.shape.tool);
+				
+				
 			})
+			
+		},
+		draw : function(){
+			var $panel = $('.panel');
+			var $iframe = $('.panel-work');
+			$panel.on('click', function(evt){
+				console.log(self.family.shape);
+			});
+			
+			
 		}
 	}
 	ctx.toolBox = toolBox;
