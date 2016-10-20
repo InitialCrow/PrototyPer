@@ -3,20 +3,19 @@
 	
 	margin: 0 0 20px 0;
 }
-.panel{
+.home-container .panel{
 	float: right;	
 }
 .panel-body{
 
-	position: relative!important;
+	
 }
 
 .panel-work{
+	overflow: hidden;
 	margin: 0;
-	position: absolute;
-	z-index: -1;
+	position: relative;
 	width: 100%;
 	height: 100%;
-	left: 0;
-	top: 0;
+
 }
