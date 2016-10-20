@@ -9,23 +9,24 @@ progression du dev = *
 				|
 				|
 		- Initialisation du projet [x]
-		- Creation de la page login [*]
-		- Creation du system de login [ ]
-		- Creation de la home page [ ]
+		- Creation de la page login [x]
+		- Creation du system de login [x]
+		- Creation de la home page [x]
 	
 ------------------------------------------------- 0.0.2
 				|
 				|
 				|
-		- Implémentation du core de l'application [ ]
-		- Préparation du service wireframe [ ]
-		- Préparation du service fonctionnelle [ ]
+		- Implémentation du core de l'application [x]
+		- Préparation du service wireframe [x]
+		- Implémentation des premiers outils [*]
 		
 ------------------------------------------------- 0.0.3
 				|
 				|
 				|
-		- Implémentation des premiers outils [ ]
+		
+		- Préparation du service fonctionnelle [ ]
 		- Implémentation de l'exportation [ ]
 
 ------------------------------------------------- 0.0.4
