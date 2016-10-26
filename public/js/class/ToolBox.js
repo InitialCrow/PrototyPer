@@ -14,13 +14,11 @@ ToolBox.prototype = {
 		var $sub_tool = $('.sub-tool');
 
 		$sub_tool.append(sub_content);
-
-		
-
 		$sub_tool.css('height', $toolBox[0].clientHeight);
 		$('.return-btn').on('click',function(evt){
 			evt.preventDefault();
-			$('.sub-tool').addClass('bye');	
+			$('.sub-tool').addClass('bye');
+
 		})
 		family.init();
 	}

@@ -26,7 +26,7 @@ Write.prototype.drawText = function(elem, increment, content, color){
 	var $elem = elem.find('.input0');
 	var $content = elem.val();
 	if(elem.val() !== ''){
-		elem.before('<p class=\'write'+increment+'\'>'+$content+'</p>');
+		elem.before('<div><p class=\'write'+increment+'\'>'+$content+'</p></div>');
 		$('.write'+increment).css({
 			'position':'absolute',
 			'left':elem.position().left+'px',
