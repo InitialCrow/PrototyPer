@@ -8,10 +8,10 @@ function Write(name, color){
 Write.protype = Object.create(Shape.prototype);
 
 
-Write.prototype.drawInput = function(elem, increment, pos,boolStatement, color){
+Write.prototype.drawInput = function(elem, increment, pos, color){
 	var self = this;
 	var $elem = elem;
-	self.inputReady = boolStatement;
+
 
 	var $input = $elem.append("<input class= 'input0' type='text'>");
 	
@@ -21,12 +21,13 @@ Write.prototype.drawInput = function(elem, increment, pos,boolStatement, color){
 		'top':pos.y+'px',	
 	});
 }
-Write.prototype.drawText = function(elem, increment, content, color){
+Write.prototype.drawText = function(elem, increment,color){
 	var self = this;
 	var $elem = elem.find('.input0');
 	var $content = elem.val();
 	if(elem.val() !== ''){
-		elem.before('<div><p class=\'write'+increment+'\'>'+$content+'</p></div>');
+		
+		elem.before('<div class=\'write-container'+increment+'\' ><p class=\'write'+increment+'\'>'+$content+'</p></div>');
 		$('.write'+increment).css({
 			'position':'absolute',
 			'left':elem.position().left+'px',

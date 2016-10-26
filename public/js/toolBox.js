@@ -42,18 +42,21 @@
 			var mouseMovePos = {};
 			var inputReady = false;
 			
+			
 			$iframe.on('mousedown', function(evt){
+				// evt.preventDefault();
 				mousePos.x = evt.pageX-$(this).offset().left ;
 				mousePos.y = evt.pageY-$(this).offset().top ;
 				if(self.selected.family.tool === "square-tool" ){
 					self.selected.tool = new Square();
 					self.selected.tool.active = true;
 
-				
+					console.log('ici2')
 					classIncrement ++;
 					self.selected.tool.draw($iframe, classIncrement, mousePos);
 				}
 				if(self.selected.family.tool === "round-tool" ){
+					console.log('ici3')
 					self.selected.tool = new Round();
 					self.selected.tool.active = true;
 					
@@ -71,32 +74,42 @@
 						inputReady = true;
 						
 					}
-				
-					if(inputReady === true){
 					
-						$('.input0').on('blur', function(evt){
-							$content = $(this).val(); // empty
-							self.selected.tool.drawText($(this), classIncrement);
-							inputReady = false;
 
-						});						
-					}
-					classIncrement ++;
+					
 					self.selected.tool.active = true;	
 				}
 				
+			}).on('click',function(){
+				$('.input0').on('blur', function(evt){
+					if(inputReady === true){		
+						console.log('ici')
+				
+						$content = $(this).val(); // empty
+						self.selected.tool.drawText($(this), classIncrement);
+						inputReady = false;
+						classIncrement ++;
+					}
+					
+				});
 			});
+			
+				
+			
+			
 			$iframe.on('mouseup', function(evt){
 				if(self.selected.tool !== null){
 
 					if(self.selected.tool.active === true){
 						self.selected.tool.active = false;
 						if(inputReady === false){
+
 							$('.input0').remove();
 						}
-						return;
+						
 					}
 				}
+				
 			});
 
 			$iframe.on('mousemove', function(evt){
