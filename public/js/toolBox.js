@@ -134,6 +134,7 @@
 			var $elem = null;
 			var mouseMovePos = {};
 			var selected = false;
+
 			var elemLoaded = new CustomEvent(
 				"elemLoaded", 
 				{
@@ -151,10 +152,9 @@
 				
 				if($classname!== 'panel-work' && self.selected.family.name === editFamilyName){
 					$elem = $('.'+$classname);
-					$elem.css({
-						'border-color':'red',
-						'cursor':'pointer',
-					});
+					
+					
+					
 					$elem[0].dispatchEvent(elemLoaded);
 				}
 				
@@ -164,19 +164,61 @@
 				$elem.on('mouseleave',function(evt){
 					
 					if($elem.attr('class')!== 'panel-work'){
+						console.log('ici')
 						$elem.css({
 							'border-color':'inherit',
-							'cursor':'pointer',
+							
 						});
 					}
 				})
+
 				$elem.on('mousedown', function(evt){
 					selected = true;
-				
-
 				});
 
 				$iframe.on('mousemove',function(evt){
+
+					if((evt.offsetY < parseInt($elem.css('borderRightWidth'))*4 && evt.offsetY > -parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
+						$elem.css({
+							'border-color':'red',
+							'cursor':'s-resize',
+						})
+						
+					}
+					else{
+						if($elem.is(':hover')){
+							$elem.css({
+								'border-color':'red',
+								'cursor':'pointer',
+							});
+						}
+						
+					}
+			
+					if((evt.offsetY >$elem.outerHeight()-parseInt($elem.css('borderRightWidth'))*4 && evt.offsetY <$elem.outerHeight()+parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
+
+						$elem.css({
+							'border-color':'red',
+							'cursor':'n-resize',
+						})
+					
+					}
+					if((evt.offsetX <parseInt($elem.css('borderRightWidth'))*4 && evt.offsetX > -parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
+					
+						$elem.css({
+							'border-color':'red',
+							'cursor':'e-resize',
+						})
+					}
+					if((evt.offsetX > $elem.outerWidth()-parseInt($elem.css('borderRightWidth'))*4 &&  +parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
+					
+						$elem.css({
+							'border-color':'red',
+							'cursor':'w-resize',
+						})
+					}
+					
+
 					if(selected === true){
 						mouseMovePos.x =  evt.pageX-$(this).offset().left
 						mouseMovePos.y = evt.pageY-$(this).offset().top 
@@ -185,8 +227,9 @@
 							'left':mouseMovePos.x+'px',
 						})
 					}
-				});
 
+				});
+				
 				$iframe.on('mouseup', function(evt){
 					if(selected === true){
 						
@@ -196,6 +239,7 @@
 						return;
 					}
 				})
+				
 			})
 
 			
