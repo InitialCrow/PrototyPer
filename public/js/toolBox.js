@@ -2,7 +2,8 @@
 	var toolBox = {
 		box : new ToolBox(),
 		family :{
-			shape : new Shape(),	
+			shape : new Shape(),
+			text : new Text(),	
 		},
 		selected : {
 			family : null,
@@ -38,21 +39,50 @@
 			var classIncrement=0;
 			var mousePos = {};
 			var mouseMovePos = {};
+			var inputReady = false;
 			
 			$iframe.on('mousedown', function(evt){
-				if(self.family.shape.tool === "square-tool" ){
-					console.log('icvi');
-					
+				mousePos.x = evt.pageX-$(this).offset().left ;
+				mousePos.y = evt.pageY-$(this).offset().top ;
+				if(self.selected.family.tool === "square-tool" ){
 					self.selected.tool = new Square();
 					self.selected.tool.active = true;
-					
-					mousePos.x = evt.pageX-$(this).offset().left ;
-					mousePos.y = evt.pageY-$(this).offset().top ;
+
 				
 					classIncrement ++;
 					self.selected.tool.draw($iframe, classIncrement, mousePos);
+				}
+				if(self.selected.family.tool === "round-tool" ){
+					self.selected.tool = new Round();
+					self.selected.tool.active = true;
+					
+					classIncrement ++;
+					self.selected.tool.draw($iframe, classIncrement, mousePos);
+				}
+				if(self.selected.family.tool === "write-tool" ){
+					self.selected.tool = new Write();				
+							
+					
+					if(inputReady === false){
 
-					console.log(self.selected.tool.active);
+						
+						self.selected.tool.drawInput($iframe, classIncrement, mousePos);
+						inputReady = true;
+						
+					}
+				
+					if(inputReady === true){
+					
+						$('.input0').on('blur', function(evt){
+							$content = $(this).val(); // empty
+							self.selected.tool.drawText($(this), classIncrement);
+							inputReady = false;
+						});						
+					}
+					classIncrement ++;
+					self.selected.tool.active = true;
+					
+					
 				}
 				
 			});
@@ -60,7 +90,9 @@
 				if(self.selected.tool !== null){
 					if(self.selected.tool.active === true){
 						self.selected.tool.active = false;
-					
+						if(inputReady === false){
+							$('.input0').remove();
+						}
 						return;
 					}
 				}
@@ -72,7 +104,7 @@
 						
 						mouseMovePos.x =  evt.pageX-$(this).offset().left - mousePos.x;
 						mouseMovePos.y = evt.pageY-$(this).offset().top - mousePos.y;
-						console.log(mouseMovePos.x, mouseMovePos.y);
+					
 						self.selected.tool.resize($iframe, classIncrement, mouseMovePos);
 					}
 				}
@@ -81,8 +113,6 @@
 				}
 
 			});
-
-
 		}
 	}
 	ctx.toolBox = toolBox;

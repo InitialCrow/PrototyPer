@@ -90,8 +90,10 @@
     <!-- class -->
     <script src="/js/class/ToolBox.js"></script>
     <script src="/js/class/Shape.js"></script>
+    <script src="/js/class/Text.js"></script>
     <script src="/js/class/Square.js"></script>
     <script src="/js/class/Round.js"></script>
+    <script src="/js/class/Write.js"></script>
     <!-- Scripts -->
     <script src="/js/main.js"></script>
     <script src="/js/toolBox.js"></script>
