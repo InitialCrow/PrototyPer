@@ -71,9 +71,6 @@
 						inputReady = true;
 						
 					}
-					
-
-					
 					self.selected.tool.active = true;	
 				}
 				
@@ -151,9 +148,6 @@
 				
 				if($classname!== 'panel-work' && self.selected.family.name === editFamilyName){
 					$elem = $('.'+$classname);
-					
-					
-					
 					$elem[0].dispatchEvent(elemLoaded);
 				}
 				
@@ -169,13 +163,21 @@
 						});
 					}
 				})
-
 				$elem.on('mousedown', function(evt){
 					selected = true;
-				});
+					if(self.selected.family.tool === 'remove-tool'){
 
-				$iframe.on('mousemove',function(evt){
+						self.selected.tool = new Remove();
+						self.selected.tool.active = true;
+						self.selected.tool.remove(this);
+						self.selected.family.tool = null;
+						self.selected.tool = null;
+						return;
+						
+					}
 					
+				});
+				$iframe.on('mousemove',function(evt){
 					if(moveMode === true){
 						resizeMode = false;
 						self.selected.family.move($elem, mouseMovePos);
@@ -192,35 +194,23 @@
 						else{
 							self.selected.family.resizeLeft($elem, mouseMovePos);
 						}
-						
 						return
 					}
-				
-				
 					if(selected === true && resizing === false){
-					
-
 						mouseMovePos.x =  evt.pageX-$(this).offset().left
 						mouseMovePos.y = evt.pageY-$(this).offset().top
 						moveMode = true;
 						resizeMode = false;
-					
 						return;
-
 					}
-					
-
 					if((evt.offsetY < parseInt($elem.css('borderRightWidth'))*8 && evt.offsetY > -parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
-					
-					
 						resizing = true;
 						self.selected.family.hovering($elem, 'red','s-resize');
 						if(selected === true){
 							resizeMode = true;
 							resizeTop = true;
 						}
-						return;
-							
+						return;	
 					}
 					else{
 						if($elem.is(':hover')){
@@ -230,12 +220,9 @@
 							});
 							resizing = false;
 							resizeMode= false;
-
 						}	
 					}
 					if((evt.offsetY >$elem.outerHeight()-parseInt($elem.css('borderRightWidth'))*8 && evt.offsetY <$elem.outerHeight()+parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
-				
-						
 						resizing = true;
 						self.selected.family.hovering($elem, 'red','n-resize');
 						if(selected === true ){
@@ -246,8 +233,6 @@
 					
 					}
 					if((evt.offsetX <parseInt($elem.css('borderRightWidth'))*8 && evt.offsetX > -parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
-						
-						
 						resizing = true;
 						self.selected.family.hovering($elem, 'red','e-resize');
 						if(selected === true){
@@ -256,12 +241,9 @@
 
 						}
 						return;
-
 					}
 					if((evt.offsetX > $elem.outerWidth()-parseInt($elem.css('borderRightWidth'))*8 &&  +parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
-					
 						resizing = true;
-					
 						self.selected.family.hovering($elem, 'red','w-resize');
 						if(selected === true ){
 							resizeMode = true;
@@ -269,7 +251,6 @@
 						}
 						return;
 					}
-
 				});
 				$iframe.on('mouseup', function(evt){
 					if(selected === true){
@@ -279,9 +260,11 @@
 						resizing = false;
 						moveMode =false;
 						resizeMode = false;
+						
 						selected = false;
-						return;
 					}
+					self.selected.tool.active = false;
+					return;
 				});
 			});
 		}

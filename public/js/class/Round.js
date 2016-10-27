@@ -11,7 +11,6 @@ Round.prototype.draw = function(elem, increment, pos, color){
 	var $elem = elem;
 	$elem.append('<div class=\'round'+increment+'\'></div>');
 	$elem.find('.round'+increment).css({
-		
 		'position':'absolute',
 		'left':pos.x+'px',
 		'top':pos.y+'px',

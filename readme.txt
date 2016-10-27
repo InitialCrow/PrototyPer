@@ -19,14 +19,14 @@ progression du dev = *
 				|
 		- Implémentation du core de l'application [x]
 		- Préparation du service wireframe [x]
-		- Implémentation des premiers outils [*]
+		- Implémentation des premiers outils [x]
 		
 ------------------------------------------------- 0.0.3
 				|
 				|
 				|
 		
-		- Préparation du service fonctionnelle [ ]
+		- Préparation du service fonctionnelle [*]
 		- Implémentation de l'exportation [ ]
 
 ------------------------------------------------- 0.0.4

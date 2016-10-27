@@ -8,7 +8,7 @@ Edit.prototype = Object.create(ToolBox.prototype);
 
 Edit.prototype.init = function(){
 	var self = this;
-	var html = "<button type=''class='edit-btn' data-type='first-tool'>First option</button>";
+	var html = "<button type=''class='edit-btn' data-type='remove-tool'>Remove Elem</button>";
 	$('.sub-tool').append(html);
 
 	$('.edit-btn').on('click',function(evt){

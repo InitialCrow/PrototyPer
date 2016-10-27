@@ -92,6 +92,7 @@
     <script src="/js/class/Shape.js"></script>
     <script src="/js/class/Text.js"></script>
     <script src="/js/class/Edit.js"></script>
+    <script src="/js/class/Remove.js"></script>
     <script src="/js/class/Square.js"></script>
     <script src="/js/class/Round.js"></script>
     <script src="/js/class/Write.js"></script>
