@@ -50,13 +50,10 @@
 				if(self.selected.family.tool === "square-tool" ){
 					self.selected.tool = new Square();
 					self.selected.tool.active = true;
-
-					console.log('ici2')
 					classIncrement ++;
 					self.selected.tool.draw($iframe, classIncrement, mousePos);
 				}
 				if(self.selected.family.tool === "round-tool" ){
-					console.log('ici3')
 					self.selected.tool = new Round();
 					self.selected.tool.active = true;
 					
@@ -83,8 +80,6 @@
 			}).on('click',function(){
 				$('.input0').on('blur', function(evt){
 					if(inputReady === true){		
-						console.log('ici')
-				
 						$content = $(this).val(); // empty
 						self.selected.tool.drawText($(this), classIncrement);
 						inputReady = false;
@@ -93,10 +88,7 @@
 					
 				});
 			});
-			
-				
-			
-			
+
 			$iframe.on('mouseup', function(evt){
 				if(self.selected.tool !== null){
 
@@ -133,7 +125,14 @@
 			var $iframe = $('.panel-work');
 			var $elem = null;
 			var mouseMovePos = {};
+		
 			var selected = false;
+			var resizing = false;
+
+			var moveMode = false;
+			var resizeMode = false;
+
+			var resizeTop = null;
 
 			var elemLoaded = new CustomEvent(
 				"elemLoaded", 
@@ -164,7 +163,6 @@
 				$elem.on('mouseleave',function(evt){
 					
 					if($elem.attr('class')!== 'panel-work'){
-						console.log('ici')
 						$elem.css({
 							'border-color':'inherit',
 							
@@ -177,13 +175,52 @@
 				});
 
 				$iframe.on('mousemove',function(evt){
+					
+					if(moveMode === true){
+						resizeMode = false;
+						self.selected.family.move($elem, mouseMovePos);
+					
+					}
+					if(resizeMode === true){
+						mouseMovePos.x =  evt.pageX-$elem.offset().left
+						mouseMovePos.y = evt.pageY-$elem.offset().top
 
-					if((evt.offsetY < parseInt($elem.css('borderRightWidth'))*4 && evt.offsetY > -parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
-						$elem.css({
-							'border-color':'red',
-							'cursor':'s-resize',
-						})
+						moveMode = false;
+						if(resizeTop === true){
+							self.selected.family.resizeTop($elem, mouseMovePos);
+						}
+						else{
+							self.selected.family.resizeLeft($elem, mouseMovePos);
+						}
 						
+						return
+					}
+				
+				
+					if(selected === true && resizing === false){
+					
+
+						mouseMovePos.x =  evt.pageX-$(this).offset().left
+						mouseMovePos.y = evt.pageY-$(this).offset().top
+						moveMode = true;
+						resizeMode = false;
+					
+						return;
+
+					}
+					
+
+					if((evt.offsetY < parseInt($elem.css('borderRightWidth'))*8 && evt.offsetY > -parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
+					
+					
+						resizing = true;
+						self.selected.family.hovering($elem, 'red','s-resize');
+						if(selected === true){
+							resizeMode = true;
+							resizeTop = true;
+						}
+						return;
+							
 					}
 					else{
 						if($elem.is(':hover')){
@@ -191,59 +228,62 @@
 								'border-color':'red',
 								'cursor':'pointer',
 							});
-						}
+							resizing = false;
+							resizeMode= false;
+
+						}	
+					}
+					if((evt.offsetY >$elem.outerHeight()-parseInt($elem.css('borderRightWidth'))*8 && evt.offsetY <$elem.outerHeight()+parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
+				
 						
+						resizing = true;
+						self.selected.family.hovering($elem, 'red','n-resize');
+						if(selected === true ){
+							resizeMode = true;
+							resizeTop = true;
+						}
+						return;
+					
 					}
-			
-					if((evt.offsetY >$elem.outerHeight()-parseInt($elem.css('borderRightWidth'))*4 && evt.offsetY <$elem.outerHeight()+parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
+					if((evt.offsetX <parseInt($elem.css('borderRightWidth'))*8 && evt.offsetX > -parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
+						
+						
+						resizing = true;
+						self.selected.family.hovering($elem, 'red','e-resize');
+						if(selected === true){
+							resizeMode = true;
+							resizeTop = false;
 
-						$elem.css({
-							'border-color':'red',
-							'cursor':'n-resize',
-						})
-					
-					}
-					if((evt.offsetX <parseInt($elem.css('borderRightWidth'))*4 && evt.offsetX > -parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
-					
-						$elem.css({
-							'border-color':'red',
-							'cursor':'e-resize',
-						})
-					}
-					if((evt.offsetX > $elem.outerWidth()-parseInt($elem.css('borderRightWidth'))*4 &&  +parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
-					
-						$elem.css({
-							'border-color':'red',
-							'cursor':'w-resize',
-						})
-					}
-					
+						}
+						return;
 
-					if(selected === true){
-						mouseMovePos.x =  evt.pageX-$(this).offset().left
-						mouseMovePos.y = evt.pageY-$(this).offset().top 
-						$elem.css({
-							'top':mouseMovePos.y+'px',
-							'left':mouseMovePos.x+'px',
-						})
+					}
+					if((evt.offsetX > $elem.outerWidth()-parseInt($elem.css('borderRightWidth'))*8 &&  +parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
+					
+						resizing = true;
+					
+						self.selected.family.hovering($elem, 'red','w-resize');
+						if(selected === true ){
+							resizeMode = true;
+							resizeTop = false;
+						}
+						return;
 					}
 
 				});
-				
 				$iframe.on('mouseup', function(evt){
 					if(selected === true){
 						
 						mouseMovePos.x = null;
 						mouseMovePos.y = null;
+						resizing = false;
+						moveMode =false;
+						resizeMode = false;
 						selected = false;
 						return;
 					}
-				})
-				
-			})
-
-			
-
+				});
+			});
 		}
 	}
 	ctx.toolBox = toolBox;
