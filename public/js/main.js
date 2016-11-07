@@ -4,6 +4,8 @@
 			this.cssHeight();
 			// enable toolbox function
 			this.toolBox.init();
+			//this.protoBox.init();
+			
 		},
 		cssHeight : function(){
 			//hack for height always 100%

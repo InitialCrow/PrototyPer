@@ -7,6 +7,7 @@
         <button type="" class="tool btn btn-default" data-family="texts" >Text</button>
         <button type="" class="tool btn btn-default" data-family="" >Link</button>
         <button type="" class="tool btn btn-default" data-family="edits" >Edit</button>
+        <button type="" class="save-btn btn btn-success" >save</button>
         <button type="" class="tool btn btn-success" >Export</button>
     </div>
 </div>

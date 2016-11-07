@@ -1,9 +1,7 @@
 (function(ctx, $){
-	var toolBox = {
-		box : new ToolBox(),
+	var protoBox = {
+		box : new ToolBox('ProtoBox'),
 		family :{
-			shape : new Shape(),
-			text : new Text(),
 			edit : new Edit(),
 		},
 		selected : {
@@ -12,10 +10,7 @@
 		},
 		init:function(){
 			//enable selectable tools
-			this.select();
-			this.draw();
 			this.edit(self.family.edit.name);
-			this.save();
 		},
 		select : function(){
 			var $tool = $('.tool');
@@ -34,90 +29,6 @@
 				self.box.show_sub('.toolBox', self.selected.family);
 			
 			});		
-		},
-		draw : function(){
-			var $panel = $('.home-container .panel');
-			var  $iframe = $('.panel-work');
-			var classIncrement=0;
-			var mousePos = {};
-			var mouseMovePos = {};
-			var inputReady = false;
-			
-			
-			$iframe.on('mousedown', function(evt){
-				// evt.preventDefault();
-				mousePos.x = evt.pageX-$(this).offset().left ;
-				mousePos.y = evt.pageY-$(this).offset().top ;
-				if(self.selected.family.tool === "square-tool" ){
-					self.selected.tool = new Square();
-					self.selected.tool.active = true;
-					classIncrement ++;
-					self.selected.tool.draw($iframe, classIncrement, mousePos);
-				}
-				if(self.selected.family.tool === "round-tool" ){
-					self.selected.tool = new Round();
-					self.selected.tool.active = true;
-					
-					classIncrement ++;
-					self.selected.tool.draw($iframe, classIncrement, mousePos);
-				}
-				if(self.selected.family.tool === "write-tool" ){
-					self.selected.tool = new Write();				
-							
-					
-					if(inputReady === false){
-
-						
-						self.selected.tool.drawInput($iframe, classIncrement, mousePos);
-						inputReady = true;
-						
-					}
-					self.selected.tool.active = true;	
-				}
-				
-			}).on('click',function(){
-				$('.input0').on('blur', function(evt){
-					if(inputReady === true){		
-						$content = $(this).val(); // empty
-						self.selected.tool.drawText($(this), classIncrement);
-						inputReady = false;
-						classIncrement ++;
-					}
-					
-				});
-			});
-
-			$iframe.on('mouseup', function(evt){
-				if(self.selected.tool !== null){
-
-					if(self.selected.tool.active === true){
-						self.selected.tool.active = false;
-						if(inputReady === false){
-
-							$('.input0').remove();
-						}
-						
-					}
-				}
-				
-			});
-
-			$iframe.on('mousemove', function(evt){
-				
-				if(self.selected.tool !== null){
-					if(self.selected.tool.active === true){
-						
-						mouseMovePos.x =  evt.pageX-$(this).offset().left - mousePos.x;
-						mouseMovePos.y = evt.pageY-$(this).offset().top - mousePos.y;
-					
-						self.selected.tool.resize($iframe, classIncrement, mouseMovePos);
-					}
-				}
-				else{
-					return ;
-				}
-
-			});
 		},
 		edit : function(editFamilyName){
 			var $iframe = $('.panel-work');
@@ -268,58 +179,8 @@
 					return;
 				});
 			});
-		},
-		save : function(){
-
-			var $saveBtn = $('.save-btn');
-			var $form = $('.save-form');
-			var $wireframe = null;
-			var token = null;
-			
-			$saveBtn.on('click', function(evt){
-			
-				$wireframe = $('.panel-work').html();
-				token = self.makeid(10);
-				$form.submit();
-
-				
-				
-			});
-			$form.on('submit',function(evt){
-					evt.preventDefault();
-					$.ajaxSetup({
-					    headers: {
-					        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-					    }
-					});
-					$.ajax({
-						
-						url: $form.attr('action'),
-						method : $form.attr('method'),
-						data : {wireframe : $wireframe, token: token},	
-						success : function(res){
-							console.log(res);
-							console.log('wireframe -> saved');
-							
-						},
-						error : function(res){
-							alert('sorry bug ajax try update your browser or contact me');
-						}	
-					});
-				})
-			
-
-		},
-		makeid : function(nb){
-			var text = "";
-			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-			for( var i=0; i < nb; i++ )
-			text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-			return text;
 		}
 	}
-	ctx.toolBox = toolBox;
-	var self = toolBox;
+	ctx.protoBox = protoBox;
+	var self = protoBox;
 })(app, jQuery)

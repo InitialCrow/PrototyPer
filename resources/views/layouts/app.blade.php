@@ -99,6 +99,7 @@
     <!-- Scripts -->
     <script src="/js/main.js"></script>
     <script src="/js/toolBox.js"></script>
+    <script src="/js/protoBox.js"></script>
     <script>
         app.init();
 
