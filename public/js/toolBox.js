@@ -38,7 +38,20 @@
 		draw : function(){
 			var $panel = $('.home-container .panel');
 			var  $iframe = $('.panel-work');
-			var classIncrement=0;
+
+			if($iframe.children().length == 0){
+				
+				var classIncrement=0;
+			}
+			else{
+				var $classname = $iframe.children().last().attr('class');
+
+				var matches = $classname.match(/\d+/g);
+				if (matches != null) {
+				   var classIncrement = Number(matches[0]);
+				}
+			}
+
 			var mousePos = {};
 			var mouseMovePos = {};
 			var inputReady = false;
@@ -277,35 +290,57 @@
 			var token = null;
 			
 			$saveBtn.on('click', function(evt){
-			
+
 				$wireframe = $('.panel-work').html();
+			
+
 				token = self.makeid(10);
+				
 				$form.submit();
 
 				
 				
 			});
 			$form.on('submit',function(evt){
+
 					evt.preventDefault();
 					$.ajaxSetup({
 					    headers: {
 					        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
 					    }
 					});
-					$.ajax({
-						
-						url: $form.attr('action'),
-						method : $form.attr('method'),
-						data : {wireframe : $wireframe, token: token},	
-						success : function(res){
-							console.log(res);
-							console.log('wireframe -> saved');
+					if($(this).attr('data-type') === 'save'){
+						$.ajax({
 							
-						},
-						error : function(res){
-							alert('sorry bug ajax try update your browser or contact me');
-						}	
-					});
+							url: $form.attr('action'),
+							method : $form.attr('method'),
+							data : {wireframe : $wireframe, token: token},	
+							success : function(res){
+								window.location.href = 'load/'+token;
+								
+							},
+							error : function(res){
+								alert('sorry bug ajax try update your browser or contact me');
+							}	
+						});
+					}
+					if($(this).attr('data-type') === 'updateSave'){
+						$.ajax({
+							
+							url: $form.attr('action'),
+							method : $form.attr('method'),
+							data : {wireframe : $wireframe},	
+							success : function(res){
+								
+								console.log('wireframe->saved!');
+								
+							},
+							error : function(res){
+								alert('sorry bug ajax try update your browser or contact me');
+							}	
+						});
+					}
+					
 				})
 			
 

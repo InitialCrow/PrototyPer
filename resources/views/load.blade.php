@@ -11,7 +11,7 @@
     <div class="row home-container">     
         <div class="panel panel-default col-xs-9">
             <div class="panel-heading">Draw your WireFrame</div>
-            <form class='save-form' action="saveWire" method="post">
+            <form class='save-form' action="/updateSave" method="post" data-type='updateSave'>
                 
             
                 <div class="panel-body">
@@ -19,7 +19,7 @@
                  
                     </iframe> -->
                      <div class= "panel-work">
-                            {{html_entity_decode ($save->wireframe)}}
+                        <?php  echo $save->wireframe;?>
                     </div>
                     {{ csrf_field() }}
             </form>

@@ -18,6 +18,8 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
-Route::any('load/{token}', 'HomeController@load');
+Route::any('/load/{token}', 'HomeController@load');
 
-Route::any('saveWire', 'HomeController@save');
+Route::any('/saveWire', 'HomeController@post_save');
+
+Route::any('/updateSave', 'HomeController@post_updateSave');

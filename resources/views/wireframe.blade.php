@@ -11,7 +11,7 @@
     <div class="row home-container">     
         <div class="panel panel-default col-xs-9">
             <div class="panel-heading">Draw your WireFrame</div>
-            <form class='save-form' action="saveWire" method="post">
+            <form class='save-form' action="/saveWire" method="post" data-type='save'>
                 
             
                 <div class="panel-body">
