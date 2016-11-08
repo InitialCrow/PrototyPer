@@ -23,6 +23,7 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+   
 </head>
 <body>
     <div id="app">
@@ -84,8 +85,7 @@
         @yield('content')
     </div>
     @include('partial.footer')
-
-    <!-- Scripts -->
+     <!-- Scripts -->
     <script src="/js/app.js"></script>
     <!-- class -->
     <script src="/js/class/ToolBox.js"></script>
@@ -96,13 +96,15 @@
     <script src="/js/class/Square.js"></script>
     <script src="/js/class/Round.js"></script>
     <script src="/js/class/Write.js"></script>
+    <script src="/js/class/Spot.js"></script>
     <!-- Scripts -->
     <script src="/js/main.js"></script>
     <script src="/js/toolBox.js"></script>
     <script src="/js/protoBox.js"></script>
     <script>
         app.init();
-
     </script>
+    @yield('script')
+
 </body>
 </html>

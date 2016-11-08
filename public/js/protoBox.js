@@ -1,7 +1,8 @@
 (function(ctx, $){
 	var protoBox = {
-		box : new ToolBox('ProtoBox'),
+		box : new ToolBox('protoBox'),
 		family :{
+			spot : new Spot(),
 			edit : new Edit(),
 		},
 		selected : {
@@ -10,6 +11,7 @@
 		},
 		init:function(){
 			//enable selectable tools
+			this.select();
 			this.edit(self.family.edit.name);
 		},
 		select : function(){
@@ -56,11 +58,13 @@
 			);
 			$iframe.on('mouseover',function(evt){
 				evt.preventDefault();
-				var $classname = $(evt.target).attr('class');
-				
-				if($classname!== 'panel-work' && self.selected.family.name === editFamilyName){
-					$elem = $('.'+$classname);
-					$elem[0].dispatchEvent(elemLoaded);
+				if(self.selected.family !== null){
+					var $classname = $(evt.target).attr('class');
+					
+					if($classname!== 'panel-work' && self.selected.family.name === editFamilyName){
+						$elem = $('.'+$classname);
+						$elem[0].dispatchEvent(elemLoaded);
+					}
 				}
 				
 			})

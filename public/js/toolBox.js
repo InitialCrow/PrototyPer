@@ -59,35 +59,36 @@
 			
 			$iframe.on('mousedown', function(evt){
 				// evt.preventDefault();
-				mousePos.x = evt.pageX-$(this).offset().left ;
-				mousePos.y = evt.pageY-$(this).offset().top ;
-				if(self.selected.family.tool === "square-tool" ){
-					self.selected.tool = new Square();
-					self.selected.tool.active = true;
-					classIncrement ++;
-					self.selected.tool.draw($iframe, classIncrement, mousePos);
-				}
-				if(self.selected.family.tool === "round-tool" ){
-					self.selected.tool = new Round();
-					self.selected.tool.active = true;
-					
-					classIncrement ++;
-					self.selected.tool.draw($iframe, classIncrement, mousePos);
-				}
-				if(self.selected.family.tool === "write-tool" ){
-					self.selected.tool = new Write();				
-							
-					
-					if(inputReady === false){
-
-						
-						self.selected.tool.drawInput($iframe, classIncrement, mousePos);
-						inputReady = true;
-						
+				if(self.selected.family !== null){
+					mousePos.x = evt.pageX-$(this).offset().left ;
+					mousePos.y = evt.pageY-$(this).offset().top ;
+					if(self.selected.family.tool === "square-tool" ){
+						self.selected.tool = new Square();
+						self.selected.tool.active = true;
+						classIncrement ++;
+						self.selected.tool.draw($iframe, classIncrement, mousePos);
 					}
-					self.selected.tool.active = true;	
+					if(self.selected.family.tool === "round-tool" ){
+						self.selected.tool = new Round();
+						self.selected.tool.active = true;
+						
+						classIncrement ++;
+						self.selected.tool.draw($iframe, classIncrement, mousePos);
+					}
+					if(self.selected.family.tool === "write-tool" ){
+						self.selected.tool = new Write();				
+								
+						
+						if(inputReady === false){
+
+							
+							self.selected.tool.drawInput($iframe, classIncrement, mousePos);
+							inputReady = true;
+							
+						}
+						self.selected.tool.active = true;	
+					}
 				}
-				
 			}).on('click',function(){
 				$('.input0').on('blur', function(evt){
 					if(inputReady === true){		
@@ -158,13 +159,14 @@
 			);
 			$iframe.on('mouseover',function(evt){
 				evt.preventDefault();
-				var $classname = $(evt.target).attr('class');
-				
-				if($classname!== 'panel-work' && self.selected.family.name === editFamilyName){
-					$elem = $('.'+$classname);
-					$elem[0].dispatchEvent(elemLoaded);
+				if(self.selected.family !== null){
+					var $classname = $(evt.target).attr('class');
+					
+					if($classname!== 'panel-work' && self.selected.family.name === editFamilyName){
+						$elem = $('.'+$classname);
+						$elem[0].dispatchEvent(elemLoaded);
+					}
 				}
-				
 			})
 			document.addEventListener('elemLoaded',function(){
 
@@ -277,7 +279,6 @@
 						
 						selected = false;
 					}
-					self.selected.tool.active = false;
 					return;
 				});
 			});
@@ -353,7 +354,8 @@
 			text += possible.charAt(Math.floor(Math.random() * possible.length));
 
 			return text;
-		}
+		},
+
 	}
 	ctx.toolBox = toolBox;
 	var self = toolBox;

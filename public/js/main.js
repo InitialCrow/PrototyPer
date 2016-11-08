@@ -3,8 +3,11 @@
 		init:function(){
 			this.cssHeight();
 			// enable toolbox function
-			this.toolBox.init();
-			//this.protoBox.init();
+			// this.toolBox.init();
+		
+
+			// this.protoBox.init();
+			
 			
 		},
 		cssHeight : function(){

@@ -31,18 +31,7 @@ class HomeController extends Controller
         Session::set('id_user',Auth::user()->id);
         return view('wireframe');
     }
-    public function post_save(Request $request)
-    {
-       $wireframe =  htmlentities(trim($_POST['wireframe']));// warning check laravel native method before
-       $token = $_POST['token'];
-       
-       $save =  new Save;
-       $save->timestamps = false;
-       $save->user_id = 1;
-       $save->uri = strip_tags($token);
-       $save->wireframe = $wireframe;
-       $save->save();
-    }
+
      public function load($token)
     {
         Session::set('currentWire',$token);
@@ -51,18 +40,21 @@ class HomeController extends Controller
         $save = Save::where('user_id','=',$id)->where('uri','=',$uri)->first();
         $save->wireframe = html_entity_decode($save->wireframe);
        
-        return view('load', compact(['save',$save->wireframe]));
+        return view('load', compact(['save',$save->wireframe,'uri',$uri]));
        
     
     }
-    public function post_updateSave(){ //ajax request
-         $wireframe =  htmlentities(trim($_POST['wireframe']));
+
+    public function proto()
+    {
+        $id = (int)Session::get('id_user');
+        $uri= strip_tags(Session::get('currentWire'));
+        $save = Save::where('user_id','=',$id)->where('uri','=',$uri)->first();
+        $save->wireframe = html_entity_decode($save->wireframe);
        
-         $id = (int)Session::get('id_user');
-         $token = strip_tags(Session::get('currentWire'));
+        return view('proto', compact(['save',$save->wireframe,'uri',$uri]));
        
-         $save = Save::where('user_id', $id)->where('uri',$token)->update(['wireframe'=>$wireframe]);
     
-         return;
     }
+
 }

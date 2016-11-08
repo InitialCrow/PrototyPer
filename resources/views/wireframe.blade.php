@@ -4,8 +4,8 @@
 
 <div class="container">
     <ul class="mode-list col-xs-9">
-        <li><button class="mode-btn btn btn-default"><a href="#">Wireframe</a></button></li>
-        <li><button class="mode-btn btn btn-default"><a href="#">Protype</a></button></li>
+        <li><a href="#"><button class="mode-btn btn btn-default">Wireframe</button></a></li>
+        <li><a href="#"><button class="mode-btn btn btn-default" disabled>Protype</button></a></li>
 
     </ul>
     <div class="row home-container">     
@@ -28,4 +28,12 @@
     </div>
 </div>
 
+
 @endsection
+@section('script')
+<script type="text/javascript">
+    app.toolBox.init();
+</script>
+@endsection
+
+
