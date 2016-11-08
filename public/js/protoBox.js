@@ -191,19 +191,27 @@
 			var mousePos = {};
 			$iframe.on('mousedown',function(evt){
 				if(self.selected.family !== null){
-					mousePos.x = evt.pageX-$(this).offset().left ;
-					mousePos.y = evt.pageY-$(this).offset().top ;
-					if(target.length === 2 ){
-						target = [];
-					}
-					target.push(evt.target);
-					if(self.selected.family.tool === "hotspot-tool" ){
-						self.selected.tool = new Hotspot();
-						self.selected.tool.active = true;
+					if(self.selected.family.tool !== null ){
 					
-						self.selected.tool.init(target, mousePos);
+						mousePos.x = evt.pageX-$(this).offset().left ;
+						mousePos.y = evt.pageY-$(this).offset().top ;
+						if(target.length === 2 ){
+							target = [];
+						}
+						if($(evt.target).attr('data-option') === undefined && $(evt.target).attr('class') !== 'panel-work'){
+							
+							target.push(evt.target);
+						}
+
+						if(self.selected.family.tool === "hotspot-tool" ){
+							self.selected.tool = new Hotspot();
+							self.selected.tool.active = true;
+						
+							self.selected.tool.init(target, mousePos);
+						}
 					}
 				}
+				
 			});
 
 		}
