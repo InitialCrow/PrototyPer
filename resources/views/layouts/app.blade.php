@@ -14,7 +14,7 @@
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/toolbox.css" rel="stylesheet">
     <link href="/css/pannel.css" rel="stylesheet">
-
+    <link href="/css/optionBar.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
 
     <!-- Scripts -->
@@ -97,6 +97,7 @@
     <script src="/js/class/Round.js"></script>
     <script src="/js/class/Write.js"></script>
     <script src="/js/class/Spot.js"></script>
+    <script src="/js/class/Hotspot.js"></script>
     <!-- Scripts -->
     <script src="/js/main.js"></script>
     <script src="/js/toolBox.js"></script>

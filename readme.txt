@@ -26,13 +26,13 @@ progression du dev = *
 				|
 				|
 		
-		- Préparation du service fonctionnelle [*]
-		- Implémentation de l'exportation [ ]
-
+		- Préparation du service fonctionnelle [X]
+		
 ------------------------------------------------- 0.0.4
 				|
 				|
 				|
+		- Implémentation de l'exportation [ ]
 		- Amélioration du service wireframe [ ]
 		- Amélioration de l'exportation [ ]
 		- Ajout d'un premier proto de d'export snipet [ ]
