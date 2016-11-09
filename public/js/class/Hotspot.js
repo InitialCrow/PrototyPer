@@ -46,7 +46,6 @@ Hotspot.prototype.showOption = function(elem, mousePos, target){
 		if($option==='display'){
 			$target1.attr('data-display-parent',1).removeClass('display-parent');
 			$target2.attr('data-display-child',1).removeClass('display-child');
-			
 			$optionBar.remove();
 		}
 	})

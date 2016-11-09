@@ -144,8 +144,10 @@
 			var moveMode = false;
 			var resizeMode = false;
 
+			var elemIsEdit = false;
 			var resizeTop = null;
 
+			
 			var elemLoaded = new CustomEvent(
 				"elemLoaded", 
 				{
@@ -174,13 +176,16 @@
 					
 					if($elem.attr('class')!== 'panel-work'){
 						$elem.css({
-							'border-color':'inherit',
+							'border-color':'black',
 							
 						});
 					}
 				})
 				$elem.on('mousedown', function(evt){
+
 					selected = true;
+					elemIsEdit = $(this);
+					console.log(elemIsEdit);
 					if(self.selected.family.tool === 'remove-tool'){
 
 						self.selected.tool = new Remove();
@@ -188,6 +193,7 @@
 						self.selected.tool.remove(this);
 						self.selected.family.tool = null;
 						self.selected.tool = null;
+
 						return;
 						
 					}
@@ -195,8 +201,10 @@
 				});
 				$iframe.on('mousemove',function(evt){
 					if(moveMode === true){
+						
 						resizeMode = false;
-						self.selected.family.move($elem, mouseMovePos);
+						self.selected.family.move( elemIsEdit, mouseMovePos);
+						
 					
 					}
 					if(resizeMode === true){
@@ -270,7 +278,6 @@
 				});
 				$iframe.on('mouseup', function(evt){
 					if(selected === true){
-						
 						mouseMovePos.x = null;
 						mouseMovePos.y = null;
 						resizing = false;

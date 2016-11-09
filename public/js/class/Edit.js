@@ -31,12 +31,15 @@ Edit.prototype.resizeLeft = function(elem, pos){
 
 }
 Edit.prototype.move = function(elem, pos){
-	
+
 	var $elem = elem;
+	
 	$elem.css({
 		'top':pos.y+'px',
 		'left':pos.x+'px',
-	})
+	});
+	
+	
 }
 Edit.prototype.hovering = function(elem, color, cursor){
 	var $elem = elem;
