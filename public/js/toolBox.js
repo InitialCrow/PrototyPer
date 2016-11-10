@@ -2,6 +2,7 @@
 	var toolBox = {
 		box : new ToolBox(),
 		family :{
+			export : new Export(),
 			shape : new Shape(),
 			text : new Text(),
 			edit : new Edit(),
@@ -16,6 +17,7 @@
 			this.draw();
 			this.edit(self.family.edit.name);
 			this.save();
+			this.export();
 		},
 		select : function(){
 			var $tool = $('.tool');
@@ -185,17 +187,13 @@
 
 					selected = true;
 					elemIsEdit = $(this);
-					console.log(elemIsEdit);
 					if(self.selected.family.tool === 'remove-tool'){
-
 						self.selected.tool = new Remove();
 						self.selected.tool.active = true;
 						self.selected.tool.remove(this);
 						self.selected.family.tool = null;
 						self.selected.tool = null;
-
-						return;
-						
+						return;				
 					}
 					
 				});
@@ -350,8 +348,6 @@
 					}
 					
 				})
-			
-
 		},
 		makeid : function(nb){
 			var text = "";
@@ -362,7 +358,16 @@
 
 			return text;
 		},
+		export : function(){
+			
 
+			document.addEventListener('exportEvent',function(){
+				if(self.selected.family.tool === "snipet-tool" ){
+					self.selected.tool = new Snipet()
+					self.selected.tool.init();
+				}
+			});
+		}
 	}
 	ctx.toolBox = toolBox;
 	var self = toolBox;

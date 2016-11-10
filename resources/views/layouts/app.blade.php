@@ -98,6 +98,8 @@
     <script src="/js/class/Write.js"></script>
     <script src="/js/class/Spot.js"></script>
     <script src="/js/class/Hotspot.js"></script>
+    <script src="/js/class/Export.js"></script>
+     <script src="/js/class/Snipet.js"></script>
     <!-- Scripts -->
     <script src="/js/main.js"></script>
     <script src="/js/toolBox.js"></script>

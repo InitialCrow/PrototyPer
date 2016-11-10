@@ -32,7 +32,7 @@ progression du dev = *
 				|
 				|
 				|
-		- Implémentation de l'exportation [ ]
+		- Implémentation de l'exportation [X]
 		- Amélioration du service wireframe [ ]
 		- Amélioration de l'exportation [ ]
 		- Ajout d'un premier proto de d'export snipet [ ]
