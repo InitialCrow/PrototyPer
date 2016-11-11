@@ -359,7 +359,7 @@
 			return text;
 		},
 		export : function(){
-			
+			new Clipboard('.clip');
 
 			document.addEventListener('exportEvent',function(){
 				if(self.selected.family.tool === "snipet-tool" ){
