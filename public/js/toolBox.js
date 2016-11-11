@@ -297,10 +297,7 @@
 			
 			$saveBtn.on('click', function(evt){
 
-				$wireframe = $('.panel-work').html();
-			
-
-				token = self.makeid(10);
+				
 				
 				$form.submit();
 
@@ -310,6 +307,8 @@
 			$form.on('submit',function(evt){
 
 					evt.preventDefault();
+					$wireframe = $('.panel-work').html();
+					token = self.makeid(10);
 					$.ajaxSetup({
 					    headers: {
 					        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -346,6 +345,22 @@
 							}	
 						});
 					}
+					if($(this).attr('data-type') === 'export_html'){
+						$wireframe = "<div id='wireframeSnipet' style='margin: 0; position: relative; width: 100%; height: 100%;'>\n"+$wireframe+"\n \t\t</div>";
+						$.ajax({
+							
+							url: $form.attr('action'),
+							method : $form.attr('method'),
+							data : {wireframe : $wireframe},	
+							success : function(res){
+								console.log('wireframe->export!');
+								
+							},
+							error : function(res){
+								alert('sorry bug ajax try update your browser or contact me');
+							}	
+						});
+					}
 					
 				})
 		},
@@ -364,6 +379,10 @@
 			document.addEventListener('exportEvent',function(){
 				if(self.selected.family.tool === "snipet-tool" ){
 					self.selected.tool = new Snipet()
+					self.selected.tool.init();
+				}
+				if(self.selected.family.tool === "html-tool" ){
+					self.selected.tool = new Html()
 					self.selected.tool.init();
 				}
 			});

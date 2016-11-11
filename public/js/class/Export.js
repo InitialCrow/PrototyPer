@@ -19,8 +19,8 @@ Export.prototype.init = function(){
 			cancelable: true
 		}
 	);
-	var html = "<a href='#modal-one'><button type=''class='export-btn ' data-type='snipet-tool'>Snipet</button></a>";
-	// html += "<button type=''class='export-btn ' data-type='round-tool'>Round</button>";
+	var html = "<button type='' class='export-btn ' data-type='snipet-tool'>Snipet</button>";
+	html += "<button type='' class='export-btn ' data-type='html-tool'>HTML</button>";
 	$('.sub-tool').append(html);
 
 	$('.export-btn').on('click',function(evt){

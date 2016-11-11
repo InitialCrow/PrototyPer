@@ -24,3 +24,4 @@ Route::any('/proto/{token}', 'HomeController@proto');
 Route::any('/saveWire', 'WireframeController@post_save');
 
 Route::any('/updateSave', 'WireframeController@post_updateSave');
+Route::any('/export_html', 'DownloadController@post_exportHtml');
