@@ -90,6 +90,13 @@
 						}
 						self.selected.tool.active = true;	
 					}
+					if(self.selected.family.tool === "trait-tool" ){
+						self.selected.tool = new Trait();
+						self.selected.tool.active = true;
+						
+						classIncrement ++;
+						self.selected.tool.draw($iframe, classIncrement, mousePos);
+					}
 				}
 			}).on('click',function(){
 				$('.input0').on('blur', function(evt){

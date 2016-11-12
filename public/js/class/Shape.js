@@ -10,6 +10,7 @@ Shape.prototype.init = function(){
 	var self = this;
 	var html = "<button type=''class='shape-btn ' data-type='square-tool'>Square</button>";
 	html += "<button type=''class='shape-btn ' data-type='round-tool'>Round</button>";
+	html += "<button type='' class='shape-btn ' data-type='trait-tool'>Trait</button>";
 	$('.sub-tool').append(html);
 
 	$('.shape-btn').on('click',function(evt){

@@ -96,6 +96,7 @@
     <script src="/js/class/Square.js"></script>
     <script src="/js/class/Round.js"></script>
     <script src="/js/class/Write.js"></script>
+    <script src="/js/class/Trait.js"></script>
     <script src="/js/class/Spot.js"></script>
     <script src="/js/class/Hotspot.js"></script>
     <script src="/js/class/Export.js"></script>
