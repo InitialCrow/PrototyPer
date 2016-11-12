@@ -15,6 +15,8 @@
     <link href="/css/toolbox.css" rel="stylesheet">
     <link href="/css/pannel.css" rel="stylesheet">
     <link href="/css/optionBar.css" rel="stylesheet">
+    <link href="/css/customBar.css" rel="stylesheet">
+    <link rel='stylesheet' href='/js/spectrum/spectrum.css' />
     <link href="/css/main.css" rel="stylesheet">
 
     <!-- Scripts -->

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @include('partial.toolbox')
+@include('partial.custombar')
 
 <div class="container">
     <ul class="mode-list col-xs-9">
@@ -31,6 +32,8 @@
 
 @endsection
 @section('script')
+<script src='/js/spectrum/spectrum.js'></script>
+
 <script type="text/javascript">
     app.toolBox.init();
 </script>

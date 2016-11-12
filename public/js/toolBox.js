@@ -1,6 +1,10 @@
 (function(ctx, $){
 	var toolBox = {
 		box : new ToolBox(),
+		customBar : {
+			backgroundColor : null,
+			borderColor : null,
+		},
 		family :{
 			export : new Export(),
 			shape : new Shape(),
@@ -14,10 +18,32 @@
 		init:function(){
 			//enable selectable tools
 			this.select();
+			this.initCustomBar();
 			this.draw();
 			this.edit(self.family.edit.name);
 			this.save();
 			this.export();
+		},
+		initCustomBar : function(){
+			$(".spectre-color").spectrum({
+				color: "white",
+				preferredFormat:'rgba',
+				showInput: true,
+			});
+		
+			$(".spectre-color-border").spectrum({
+				color: "black",
+				preferredFormat:'rgba',
+				showInput: true,
+
+			});
+			$('.sp-choose').on('click', function(evt){
+				self.customBar.backgroundColor = $(".spectre-color").spectrum('get');
+				self.customBar.backgroundColor = self.customBar.backgroundColor._format+'('+self.customBar.backgroundColor._r+'%, '+self.customBar.backgroundColor._g+'%, '+self.customBar.backgroundColor._b+'%, '+self.customBar.backgroundColor._a+')';
+				
+				self.customBar.borderColor = $(".spectre-color-border").spectrum('get');
+				self.customBar.borderColor = self.customBar.borderColor._format+'('+self.customBar.borderColor._r+'%, '+self.customBar.borderColor._g+'%, '+self.customBar.borderColor._b+'%, '+self.customBar.borderColor._a+')';
+			});
 		},
 		select : function(){
 			var $tool = $('.tool');
@@ -65,20 +91,21 @@
 					mousePos.x = evt.pageX-$(this).offset().left ;
 					mousePos.y = evt.pageY-$(this).offset().top ;
 					if(self.selected.family.tool === "square-tool" ){
-						self.selected.tool = new Square();
+						self.selected.tool = new Square(self.customBar.backgroundColor, self.customBar.borderColor);
+					
 						self.selected.tool.active = true;
 						classIncrement ++;
 						self.selected.tool.draw($iframe, classIncrement, mousePos);
 					}
 					if(self.selected.family.tool === "round-tool" ){
-						self.selected.tool = new Round();
+						self.selected.tool = new Round(self.customBar.backgroundColor, self.customBar.borderColor);
 						self.selected.tool.active = true;
 						
 						classIncrement ++;
 						self.selected.tool.draw($iframe, classIncrement, mousePos);
 					}
 					if(self.selected.family.tool === "write-tool" ){
-						self.selected.tool = new Write();				
+						self.selected.tool = new Write(self.customBar.backgroundColor);				
 								
 						
 						if(inputReady === false){
@@ -91,7 +118,7 @@
 						self.selected.tool.active = true;	
 					}
 					if(self.selected.family.tool === "trait-tool" ){
-						self.selected.tool = new Trait();
+						self.selected.tool = new Trait(self.customBar.backgroundColor);
 						self.selected.tool.active = true;
 						
 						classIncrement ++;

@@ -1,7 +1,8 @@
-function Square(name, color){
+function Square(color, borderColor, name){
 	Shape.call(this,name);
-	this.name = name || 'Square Tool';
 	this.color = color || 'white';
+	this.borderColor = borderColor || 'black';
+	this.name = name || 'Square Tool';
 }
 Square.protype = Object.create(Shape.prototype);
 
@@ -16,8 +17,8 @@ Square.prototype.draw = function(elem, increment, pos, color){
 		'position':'absolute',
 		'left':pos.x+'px',
 		'top':pos.y+'px',
-		'border':'2px solid black',
-		'background-color':self.color
+		'border':'2px solid '+self.borderColor,
+		'background':self.color
 	});
 }
 Square.prototype.resize = function(elem, increment, mousepos){

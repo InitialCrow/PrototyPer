@@ -1,7 +1,8 @@
-function Round(name, color){
+function Round( color,borderColor,name){
 	Shape.call(this,name);
-	this.name = name || 'round Tool';
 	this.color = color || 'white';
+	this.borderColor = borderColor || 'black';
+	this.name = name || 'round Tool';
 }
 Round.protype = Object.create(Shape.prototype);
 
@@ -15,8 +16,8 @@ Round.prototype.draw = function(elem, increment, pos, color){
 		'left':pos.x+'px',
 		'top':pos.y+'px',
 		'border-radius':'50%',
-		'border':'2px solid black',
-		'background-color':self.color
+		'border':'2px solid '+self.borderColor,
+		'background':self.color
 	});
 }
 Round.prototype.resize = function(elem, increment, mousepos){

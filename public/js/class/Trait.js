@@ -1,7 +1,7 @@
-function Trait(name, color){
+function Trait(color, name ){
 	Shape.call(this,name);
-	this.name = name || 'Trait Tool';
 	this.color = color || 'black';
+	this.name = name || 'Trait Tool';
 }
 Trait.protype = Object.create(Shape.prototype);
 
@@ -19,7 +19,7 @@ Trait.prototype.draw = function(elem, increment, pos, color){
 		'height':"1px",
 		'width':"1px",
 
-		'background-color':self.color
+		'background':self.color
 	});
 }
 Trait.prototype.resize = function(elem, increment, mousepos){
