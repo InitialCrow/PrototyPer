@@ -353,8 +353,8 @@
 							method : $form.attr('method'),
 							data : {wireframe : $wireframe},	
 							success : function(res){
-								console.log('wireframe->export!');
-								
+							
+								window.location.href = '/download/'+res;
 							},
 							error : function(res){
 								alert('sorry bug ajax try update your browser or contact me');
