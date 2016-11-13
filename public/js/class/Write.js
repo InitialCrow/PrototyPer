@@ -1,6 +1,8 @@
-function Write(color, borderColor, name){
+function Write(color, borderSize, zIndex, borderColor, name){
 	Text.call(this,name);
 	this.color = color || 'black';
+	this.borderSize = borderSize || 'none';
+	this.zIndex = zIndex || 0;
 	this.borderColor = borderColor || 'none';
 	this.name = name || 'write Tool';
 
@@ -33,7 +35,7 @@ Write.prototype.drawText = function(elem, increment,color){
 			'position':'absolute',
 			'left':elem.position().left+'px',
 			'top':elem.position().top+'px',
-			'z-index':'22',
+			'z-index': self.zIndex,
 			'color':self.color,
 
 		});

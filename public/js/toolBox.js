@@ -4,6 +4,8 @@
 		customBar : {
 			backgroundColor : null,
 			borderColor : null,
+			zIndex : 0,
+			borderSize : 2,
 		},
 		family :{
 			export : new Export(),
@@ -25,24 +27,34 @@
 			this.export();
 		},
 		initCustomBar : function(){
-			$(".spectre-color").spectrum({
+			var $backgroundColor = $(".spectre-color");
+			var $borderColor = $(".spectre-color-border");
+			$backgroundColor.spectrum({
 				color: "white",
 				preferredFormat:'rgba',
 				showInput: true,
 			});
-		
-			$(".spectre-color-border").spectrum({
+			
+			$borderColor.spectrum({
 				color: "black",
 				preferredFormat:'rgba',
 				showInput: true,
 
 			});
 			$('.sp-choose').on('click', function(evt){
-				self.customBar.backgroundColor = $(".spectre-color").spectrum('get');
+				self.customBar.backgroundColor = $backgroundColor.spectrum('get');
 				self.customBar.backgroundColor = self.customBar.backgroundColor._format+'('+self.customBar.backgroundColor._r+'%, '+self.customBar.backgroundColor._g+'%, '+self.customBar.backgroundColor._b+'%, '+self.customBar.backgroundColor._a+')';
 				
-				self.customBar.borderColor = $(".spectre-color-border").spectrum('get');
+				self.customBar.borderColor = $borderColor.spectrum('get');
 				self.customBar.borderColor = self.customBar.borderColor._format+'('+self.customBar.borderColor._r+'%, '+self.customBar.borderColor._g+'%, '+self.customBar.borderColor._b+'%, '+self.customBar.borderColor._a+')';
+			});
+			$('.z-index-mod').on('change', function(evt){
+				self.customBar.zIndex = $(this).val();
+
+			});
+			$('.border-size-mod').on('change', function(evt){
+				self.customBar.borderSize = $(this).val();
+
 			});
 		},
 		select : function(){
@@ -91,38 +103,43 @@
 					mousePos.x = evt.pageX-$(this).offset().left ;
 					mousePos.y = evt.pageY-$(this).offset().top ;
 					if(self.selected.family.tool === "square-tool" ){
-						self.selected.tool = new Square(self.customBar.backgroundColor, self.customBar.borderColor);
+						self.selected.tool = new Square(self.customBar.backgroundColor, self.customBar.borderSize, self.customBar.borderColor, self.customBar.zIndex);
 					
 						self.selected.tool.active = true;
 						classIncrement ++;
+
 						self.selected.tool.draw($iframe, classIncrement, mousePos);
+						self.customBar.zIndex ++;
 					}
 					if(self.selected.family.tool === "round-tool" ){
-						self.selected.tool = new Round(self.customBar.backgroundColor, self.customBar.borderColor);
+						self.selected.tool = new Round(self.customBar.backgroundColor, self.customBar.borderSize, self.customBar.borderColor, self.customBar.zIndex);
 						self.selected.tool.active = true;
 						
 						classIncrement ++;
 						self.selected.tool.draw($iframe, classIncrement, mousePos);
+						self.customBar.zIndex ++;
 					}
 					if(self.selected.family.tool === "write-tool" ){
-						self.selected.tool = new Write(self.customBar.backgroundColor);				
+						self.selected.tool = new Write(self.customBar.backgroundColor, self.customBar.zIndex);				
 								
 						
 						if(inputReady === false){
 
 							
 							self.selected.tool.drawInput($iframe, classIncrement, mousePos);
+							
 							inputReady = true;
 							
 						}
 						self.selected.tool.active = true;	
 					}
 					if(self.selected.family.tool === "trait-tool" ){
-						self.selected.tool = new Trait(self.customBar.backgroundColor);
+						self.selected.tool = new Trait(self.customBar.backgroundColor,self.customBar.borderSize, self.customBar.zIndex);
 						self.selected.tool.active = true;
 						
 						classIncrement ++;
 						self.selected.tool.draw($iframe, classIncrement, mousePos);
+						self.customBar.zIndex ++;
 					}
 				}
 			}).on('click',function(){
@@ -132,6 +149,7 @@
 						self.selected.tool.drawText($(this), classIncrement);
 						inputReady = false;
 						classIncrement ++;
+						self.customBar.zIndex ++;
 					}
 					
 				});
@@ -139,7 +157,7 @@
 
 			$iframe.on('mouseup', function(evt){
 				if(self.selected.tool !== null){
-
+					$('.z-index-mod').val(self.customBar.zIndex);
 					if(self.selected.tool.active === true){
 						self.selected.tool.active = false;
 						if(inputReady === false){
