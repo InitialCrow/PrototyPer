@@ -3,14 +3,19 @@
 	background-color: #333;
 }
 .customBar li{
-	
+
 	display: inline-block;
 	
 }
 .customBar .custoInput{
-	width: 40px;
+	width: 120px;
 }
 .customBar .textTool{
 	display : none;
+
+}
+.customBar .text-link-tool{
+	display : none;
+
 
 }

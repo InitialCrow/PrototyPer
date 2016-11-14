@@ -9,8 +9,10 @@
 			textSize : 14,
 			textUnderline : false,
 			textBold: false,
+			hrefTextLink : '#',
 		},
 		family :{
+			link : new Link(),
 			export : new Export(),
 			shape : new Shape(),
 			text : new Text(),
@@ -105,7 +107,6 @@
 				var value = Number($(this).val());
 				if(isNaN(value) === false){
 					self.customBar.borderSize = value;
-					
 					if(self.selected.family.name === "Edits box"){
 
 						$(self.selected.elem).css({
@@ -182,8 +183,23 @@
 				}	
 				
 			});
+			$('.text-link-mod').on('change', function(evt){
+				var $value = self.escapeHtml($(this).val());
+				self.customBar.hrefTextLink = $value;
+			});
 
 
+		},
+		escapeHtml: function(text){
+			var map = {
+			'&': '&amp;',
+			'<': '&lt;',
+			'>': '&gt;',
+			'"': '&quot;',
+			"'": '&#039;'
+			}
+
+			return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 		},
 		select : function(){
 			var $tool = $('.tool');
@@ -226,6 +242,8 @@
 			
 			
 			$iframe.on('mousedown', function(evt){
+				var $targetElem = $(evt.target);
+				
 				// evt.preventDefault();
 				if(self.selected.family !== null){
 					mousePos.x = evt.pageX-$(this).offset().left ;
@@ -269,6 +287,12 @@
 						classIncrement ++;
 						self.selected.tool.draw($iframe, classIncrement, mousePos);
 						self.customBar.zIndex ++;
+					}
+					if(self.selected.family.tool === "link-tool" ){
+						self.selected.tool = new Text_link(self.customBar.hrefTextLink);
+						self.selected.tool.init($targetElem);
+						self.selected.tool.active = true;
+
 					}
 				}
 			}).on('click',function(){
