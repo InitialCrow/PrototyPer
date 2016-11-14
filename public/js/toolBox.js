@@ -19,6 +19,7 @@
 		selected : {
 			family : null,
 			tool : null,
+			elem : null,
 		},
 		init:function(){
 			//enable selectable tools
@@ -32,72 +33,154 @@
 		initCustomBar : function(){
 			var $backgroundColor = $(".spectre-color");
 			var $borderColor = $(".spectre-color-border");
+			var colorTypeSelect = null;
 			$backgroundColor.spectrum({
 				color: "white",
 				preferredFormat:'rgba',
 				showInput: true,
+				replacerClassName : 'background'
+			
 			});
 			
 			$borderColor.spectrum({
 				color: "black",
 				preferredFormat:'rgba',
 				showInput: true,
+				replacerClassName : 'border'
 
 			});
+			$('.background').on('click', function(evt){
+				colorTypeSelect = 'background';
+			});
+			$('.border').on('click',function(evt){
+				colorTypeSelect = 'border';
+			});
 			$('.sp-choose').on('click', function(evt){
+
 				self.customBar.backgroundColor = $backgroundColor.spectrum('get');
 				self.customBar.backgroundColor = self.customBar.backgroundColor._format+'('+self.customBar.backgroundColor._r+'%, '+self.customBar.backgroundColor._g+'%, '+self.customBar.backgroundColor._b+'%, '+self.customBar.backgroundColor._a+')';
 				
 				self.customBar.borderColor = $borderColor.spectrum('get');
 				self.customBar.borderColor = self.customBar.borderColor._format+'('+self.customBar.borderColor._r+'%, '+self.customBar.borderColor._g+'%, '+self.customBar.borderColor._b+'%, '+self.customBar.borderColor._a+')';
+				
+				if(self.selected.family.name === "Edits box"){
+					if(colorTypeSelect === 'background'){
+
+						$(self.selected.elem).css({
+							'background': self.customBar.backgroundColor,
+						});
+
+
+					}
+					if(colorTypeSelect === 'border'){
+						$(self.selected.elem).css('border-color', self.customBar.borderColor);
+					}
+				
+				}
+				else{
+					
+				}
+				
 			});
 			$('.z-index-mod').on('change', function(evt){
-				var value = Number($(this).val()); 
+				var value = Number($(this).val());
+				if(isNaN(value) === false){ //is number
+					self.customBar.zIndex = value;
+					if(self.selected.family.name === "Edits box"){
+						console.log(self.customBar.zIndex);
+						$(self.selected.elem).css({
+							'z-index': self.customBar.zIndex,
+						})
+					}
+				}
+				
+				else{
 
-				if(isNaN(value) === false){
-					self.customBar.textSize = value;
+					
 				}
 				
 			});
 			$('.border-size-mod').on('change', function(evt){
-				var value = Number($(this).val());
 
+				var value = Number($(this).val());
 				if(isNaN(value) === false){
-					self.customBar.textSize = value;
+					self.customBar.borderSize = value;
+					
+					if(self.selected.family.name === "Edits box"){
+
+						$(self.selected.elem).css({
+							
+							'border-size': self.customBar.borderSize,
+							
+						});
+					}
 				}
+				else{
+					
+					
+				}
+				
 
 			});
 			$('.text-size-mod').on('change', function(evt){
 				var value = Number($(this).val());
 				if(isNaN(value) === false){
 					self.customBar.textSize = value;
+					if(self.selected.family.name === "Edits box"){
+						console.log(self.customBar.textSize);
+						$(self.selected.elem).css({
+							
+							'font-size': self.customBar.textSize+'px',
+							
+						});
+					}
+				}
+				else{
+						
+					
+						
+
 				}
 			});
 			$('.text-style-mod').on('click', function(evt){
-				var $style = $(this).attr('data-type');
+				var $style = $(this).attr('data-type')
 
+			
 				if($style === 'underline'){
-					if(self.customBar.textUnderline){
-						self.customBar.textUnderline = false;
+					if(self.customBar.textUnderline){ // if not active
+						if(self.selected.family.name === 'Edits box'){
+							$(self.selected.elem).css('text-decoration','none');
+						}
 						$(this).removeClass('active');
+						self.customBar.textUnderline = false;
 					}
 					else{
-						self.customBar.textUnderline = true;
+						if(self.selected.family.name === 'Edits box'){
+							$(self.selected.elem).css('text-decoration','underline');
+						}
 						$(this).addClass('active');
+						self.customBar.textUnderline = true;
 					}
 				}
 				if($style === 'bold'){
-					if(self.customBar.textBold){
-						self.customBar.textBold = false;
+					if(self.customBar.textBold){// if not active
+						if(self.selected.family.name === 'Edits box'){
+
+							$(self.selected.elem).css('font-weight','normal');
+						}
 						$(this).removeClass('active');
+						self.customBar.textBold = false;
 					}
 					else{
-						self.customBar.textBold = true;
+						if(self.selected.family.name === 'Edits box'){
+
+							$(self.selected.elem).css('font-weight','bold');
+						}
 						$(this).addClass('active');
+						self.customBar.textBold = true;
 					}
-				}
+				}	
 				
-		
 			});
 
 
@@ -287,6 +370,8 @@
 
 					selected = true;
 					elemIsEdit = $(this);
+					self.selected.elem = elemIsEdit;
+
 					if(self.selected.family.tool === 'remove-tool'){
 						self.selected.tool = new Remove();
 						self.selected.tool.active = true;
@@ -295,6 +380,7 @@
 						self.selected.tool = null;
 						return;				
 					}
+
 					
 				});
 				$iframe.on('mousemove',function(evt){

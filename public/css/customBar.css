@@ -3,6 +3,7 @@
 	background-color: #333;
 }
 .customBar li{
+	
 	display: inline-block;
 	
 }
@@ -11,5 +12,5 @@
 }
 .customBar .textTool{
 	display : none;
-	
+
 }
