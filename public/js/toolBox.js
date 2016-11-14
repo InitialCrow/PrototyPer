@@ -6,6 +6,9 @@
 			borderColor : null,
 			zIndex : 0,
 			borderSize : 2,
+			textSize : 14,
+			textUnderline : false,
+			textBold: false,
 		},
 		family :{
 			export : new Export(),
@@ -49,13 +52,55 @@
 				self.customBar.borderColor = self.customBar.borderColor._format+'('+self.customBar.borderColor._r+'%, '+self.customBar.borderColor._g+'%, '+self.customBar.borderColor._b+'%, '+self.customBar.borderColor._a+')';
 			});
 			$('.z-index-mod').on('change', function(evt){
-				self.customBar.zIndex = $(this).val();
+				var value = Number($(this).val()); 
 
+				if(isNaN(value) === false){
+					self.customBar.textSize = value;
+				}
+				
 			});
 			$('.border-size-mod').on('change', function(evt){
-				self.customBar.borderSize = $(this).val();
+				var value = Number($(this).val());
+
+				if(isNaN(value) === false){
+					self.customBar.textSize = value;
+				}
 
 			});
+			$('.text-size-mod').on('change', function(evt){
+				var value = Number($(this).val());
+				if(isNaN(value) === false){
+					self.customBar.textSize = value;
+				}
+			});
+			$('.text-style-mod').on('click', function(evt){
+				var $style = $(this).attr('data-type');
+
+				if($style === 'underline'){
+					if(self.customBar.textUnderline){
+						self.customBar.textUnderline = false;
+						$(this).removeClass('active');
+					}
+					else{
+						self.customBar.textUnderline = true;
+						$(this).addClass('active');
+					}
+				}
+				if($style === 'bold'){
+					if(self.customBar.textBold){
+						self.customBar.textBold = false;
+						$(this).removeClass('active');
+					}
+					else{
+						self.customBar.textBold = true;
+						$(this).addClass('active');
+					}
+				}
+				
+		
+			});
+
+
 		},
 		select : function(){
 			var $tool = $('.tool');
@@ -120,7 +165,8 @@
 						self.customBar.zIndex ++;
 					}
 					if(self.selected.family.tool === "write-tool" ){
-						self.selected.tool = new Write(self.customBar.backgroundColor, self.customBar.zIndex);				
+
+						self.selected.tool = new Write(self.customBar.backgroundColor,'none', self.customBar.zIndex, 'none',self.customBar.textSize, self.customBar.textUnderline, self.customBar.textBold);				
 								
 						
 						if(inputReady === false){
@@ -146,6 +192,8 @@
 				$('.input0').on('blur', function(evt){
 					if(inputReady === true){		
 						$content = $(this).val(); // empty
+						console.log('draw text activate');
+
 						self.selected.tool.drawText($(this), classIncrement);
 						inputReady = false;
 						classIncrement ++;

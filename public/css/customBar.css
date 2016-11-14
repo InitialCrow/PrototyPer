@@ -4,7 +4,12 @@
 }
 .customBar li{
 	display: inline-block;
+	
 }
 .customBar .custoInput{
 	width: 40px;
+}
+.customBar .textTool{
+	display : none;
+	
 }

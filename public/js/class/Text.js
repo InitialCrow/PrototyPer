@@ -8,6 +8,7 @@ Text.prototype = Object.create(ToolBox.prototype);
 
 Text.prototype.init = function(){
 	var self = this;
+	var $customTextBar = $('.textTool');
 
 	var html = "<button type='' class='text-btn ' data-type='write-tool'>A|</button>";
 	// html += "<button type=''class='text-btn .btn' data-type='round-tool'>Round</button>";
@@ -17,6 +18,7 @@ Text.prototype.init = function(){
 		evt.preventDefault();
 		self.active = true;
 		self.tool = $(this).attr('data-type');
+		$customTextBar.css('display', 'inline-block');
 		return self;	
 	});
 }
