@@ -6,7 +6,7 @@ function Round( color, borderSize, borderColor, zIndex, name){
 	this.zIndex = zIndex || 0;
 	this.name = name || 'round Tool';
 }
-Round.protype = Object.create(Shape.prototype);
+Round.prototype = Object.create(Shape.prototype);
 
 
 Round.prototype.draw = function(elem, increment, pos, color){

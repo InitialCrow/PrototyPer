@@ -3,7 +3,7 @@ function Html(name, color){
 	this.name = name || 'Html Tool';
 	this.color = color || 'white';
 }
-Html.protype = Object.create(Export.prototype);
+Html.prototype = Object.create(Export.prototype);
 
 
 Html.prototype.init = function(){

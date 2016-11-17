@@ -17,6 +17,7 @@
     <link href="/css/optionBar.css" rel="stylesheet">
     <link href="/css/customBar.css" rel="stylesheet">
     <link rel='stylesheet' href='/js/spectrum/spectrum.css' />
+    <link href="/css/grid.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
 
     <!-- Scripts -->
@@ -105,6 +106,9 @@
     <script src="/js/class/Hotspot.js"></script>
     <script src="/js/class/Export.js"></script>
      <script src="/js/class/Snipet.js"></script>
+     <script src="/js/class/Grid.js"></script>
+     <script src="/js/class/Paraph.js"></script>
+
      <script src="/js/class/Html.js"></script>
     <!-- Scripts -->
     <script src="/js/main.js"></script>

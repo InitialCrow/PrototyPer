@@ -3,7 +3,7 @@ function Text_link(href, name ){
 	this.href = href || '#';
 	this.name = name || 'link Tool';	
 }
-Text_link.protype = Object.create(Link.prototype);
+Text_link.prototype = Object.create(Link.prototype);
 
 
 Text_link.prototype.init = function(elem){

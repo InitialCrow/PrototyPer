@@ -5,7 +5,7 @@ function Trait(color, weight, zIndex, name ){
 	this.zIndex = zIndex || 0;
 	this.name = name || 'Trait Tool';
 }
-Trait.protype = Object.create(Shape.prototype);
+Trait.prototype = Object.create(Shape.prototype);
 
 
 Trait.prototype.draw = function(elem, increment, pos, color){

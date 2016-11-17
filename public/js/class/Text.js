@@ -11,7 +11,7 @@ Text.prototype.init = function(){
 	var $customTextBar = $('.textTool');
 
 	var html = "<button type='' class='text-btn ' data-type='write-tool'>A|</button>";
-	// html += "<button type=''class='text-btn .btn' data-type='round-tool'>Round</button>";
+	html += "<button type=''class='text-btn' data-type='paraph-tool'>P|</button>";
 	$('.sub-tool').append(html);
 
 	$('.text-btn').on('click',function(evt){

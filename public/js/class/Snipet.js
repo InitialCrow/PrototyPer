@@ -3,7 +3,7 @@ function Snipet(name, color){
 	this.name = name || 'Snipet Tool';
 	this.color = color || 'white';
 }
-Snipet.protype = Object.create(Export.prototype);
+Snipet.prototype = Object.create(Export.prototype);
 
 
 Snipet.prototype.init = function(){

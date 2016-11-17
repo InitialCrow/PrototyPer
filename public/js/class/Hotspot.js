@@ -3,7 +3,7 @@ function Hotspot(name, color){
 	this.name = name || 'Hotspot Tool';
 	this.color = color || 'white';
 }
-Hotspot.protype = Object.create(Spot.prototype);
+Hotspot.prototype = Object.create(Spot.prototype);
 
 
 Hotspot.prototype.init = function(target, mousePos){

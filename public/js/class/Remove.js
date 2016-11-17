@@ -3,7 +3,7 @@ function Remove(name, color){
 	this.name = name || 'edit Tool';
 	this.color = color || 'white';
 }
-Remove.protype = Object.create(Edit.prototype);
+Remove.prototype = Object.create(Edit.prototype);
 
 
 Remove.prototype.remove = function(elem){

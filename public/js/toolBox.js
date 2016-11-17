@@ -10,8 +10,10 @@
 			textUnderline : false,
 			textBold: false,
 			hrefTextLink : '#',
+
 		},
 		family :{
+			grid : new Grid(0,40,20,20),// zIndex, rowSpace, lineSpace, name
 			link : new Link(),
 			export : new Export(),
 			shape : new Shape(),
@@ -27,10 +29,17 @@
 			//enable selectable tools
 			this.select();
 			this.initCustomBar();
+			this.initGrid();
 			this.draw();
 			this.edit(self.family.edit.name);
 			this.save();
 			this.export();
+		},
+		initGrid : function(){
+			// console.log(self.family.grid)
+			var  $iframe = $('.panel-work');
+
+			self.family.grid.init($iframe);
 		},
 		initCustomBar : function(){
 			var $backgroundColor = $(".spectre-color");
@@ -120,8 +129,6 @@
 					
 					
 				}
-				
-
 			});
 			$('.text-size-mod').on('change', function(evt){
 				var value = Number($(this).val());
@@ -137,10 +144,6 @@
 					}
 				}
 				else{
-						
-					
-						
-
 				}
 			});
 			$('.text-style-mod').on('click', function(evt){
@@ -223,7 +226,7 @@
 			var $panel = $('.home-container .panel');
 			var  $iframe = $('.panel-work');
 
-			if($iframe.children().length == 0){
+			if( $iframe.last().attr('class') !== 'gridRow' && $iframe.last().attr('class') !== 'gridLine' ){
 				
 				var classIncrement=0;
 			}
@@ -280,6 +283,21 @@
 						}
 						self.selected.tool.active = true;	
 					}
+					if(self.selected.family.tool === "paraph-tool" ){
+
+						self.selected.tool = new Paraph(self.customBar.backgroundColor,'none', self.customBar.zIndex, 'none',self.customBar.textSize, self.customBar.textUnderline, self.customBar.textBold);				
+								
+						
+						if(inputReady === false){
+
+							
+							self.selected.tool.drawInput($iframe, classIncrement, mousePos);
+							
+							inputReady = true;
+							
+						}
+						self.selected.tool.active = true;	
+					}
 					if(self.selected.family.tool === "trait-tool" ){
 						self.selected.tool = new Trait(self.customBar.backgroundColor,self.customBar.borderSize, self.customBar.zIndex);
 						self.selected.tool.active = true;
@@ -296,7 +314,7 @@
 					}
 				}
 			}).on('click',function(){
-				$('.input0').on('blur', function(evt){
+				$('.input0, .area0').on('blur', function(evt){
 					if(inputReady === true){		
 						$content = $(this).val(); // empty
 						console.log('draw text activate');
@@ -318,6 +336,7 @@
 						if(inputReady === false){
 
 							$('.input0').remove();
+							$('.area0').remove();
 						}
 						
 					}
@@ -327,8 +346,18 @@
 
 			$iframe.on('mousemove', function(evt){
 				
+				// if(evt.target.className !== 'panel-work'  && evt.target !== undefined ){
+				// 	var target = evt.target;
+					
+				// }
+
 				if(self.selected.tool !== null){
+
 					if(self.selected.tool.active === true){
+						// if(target !== undefined){
+
+						
+						// }
 						
 						mouseMovePos.x =  evt.pageX-$(this).offset().left - mousePos.x;
 						mouseMovePos.y = evt.pageY-$(this).offset().top - mousePos.y;
@@ -373,7 +402,7 @@
 				if(self.selected.family !== null){
 					var $classname = $(evt.target).attr('class');
 					
-					if($classname!== 'panel-work' && self.selected.family.name === editFamilyName){
+					if($classname!== 'panel-work' && self.selected.family.name === editFamilyName && $classname!== 'gridRow' && $classname!== 'gridLine' ){
 						$elem = $('.'+$classname);
 						$elem[0].dispatchEvent(elemLoaded);
 					}
@@ -394,7 +423,10 @@
 
 					selected = true;
 					elemIsEdit = $(this);
-					self.selected.elem = elemIsEdit;
+					if(elemIsEdit.attr('class') !== 'gridRow' && elemIsEdit.attr('class') !== 'gridLine'  ){
+						self.selected.elem = elemIsEdit;
+					}
+					
 
 					if(self.selected.family.tool === 'remove-tool'){
 						self.selected.tool = new Remove();
@@ -517,7 +549,9 @@
 			$form.on('submit',function(evt){
 
 					evt.preventDefault();
-					$wireframe = $('.panel-work').html();
+					$wireframe = $('.panel-work');
+					$wireframe.find('.gridRow, .gridLine').remove();
+					$wireframe = $wireframe.html();
 					token = self.makeid(10);
 					$.ajaxSetup({
 					    headers: {
