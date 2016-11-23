@@ -4,9 +4,9 @@
 
     <div class="viewer-body ">
     	<ul >
-    	@foreach($save as $sav)
-    		
-    			<li class="frame"><p class='title'>{{$sav->title}}</p></li>
+        @foreach($save as $sav)
+
+    			<li class="frame"><a href="/proto/{{$sav->uri}}"><p class='title'>{{$sav->title}}</p></a></li>
     		
 	@endforeach
 	</ul>

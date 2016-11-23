@@ -6,7 +6,7 @@
 <div class="container">
     <ul class="mode-list col-xs-9">
         <li><a href=""><button class="mode-btn btn btn-default active">Wireframe</button></a></li>
-        <li><a class="proto" href="/proto/{{$uri}}"><button class=" mode-btn btn btn-default">Protype</button></a></li>
+        <li><a class="proto" href="/proto"><button class=" mode-btn btn btn-default">Protype</button></a></li>
 
     </ul>
     <div class="row home-container">     

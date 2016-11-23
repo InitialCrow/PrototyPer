@@ -12,14 +12,16 @@
         <div class="panel panel-default col-xs-9">
             <div class="panel-heading">Draw your WireFrame</div>
             <form class='save-form' action="/updateSave" method="post" data-type='updateSave'>
-                
-            
+
                 <div class="panel-body">
+
                    <!--  <iframe class= "panel-work" src="" allowfullscreen frameborder=0>
                  
                     </iframe> -->
                      <div class= "panel-work">
-                        
+                           @if(!empty($wireframe))
+                             <?php echo $wireframe; ?>
+                            @endif
                     </div>
                     {{ csrf_field() }}
             </form>

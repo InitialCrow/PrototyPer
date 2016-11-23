@@ -7,8 +7,24 @@ use App\Http\Requests;
 use Response;
 use  App\Save;
 use Auth;
+use Session;
 
 class ProtoController extends Controller
 {
-    //
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function load($token){
+    	Session::set('currentWire',$token);
+       	$id = (int)Session::get('id_user');
+        	$uri = strip_tags($token);
+    	$wireframe = Save::where('user_id','=',$id)->where('uri','=',$uri)->first();
+            $save = Save::where('user_id','=',$id)->get();
+
+            $wireframe = html_entity_decode($wireframe->wireframe);
+
+            return view('proto', compact(['wireframe',$wireframe,'uri',$uri, 'save',$save]));
+    }
 }

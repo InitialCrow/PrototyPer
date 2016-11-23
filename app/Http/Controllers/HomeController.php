@@ -29,20 +29,24 @@ class HomeController extends Controller
     public function index()
     {
         Session::set('id_user',Auth::user()->id);
+    
         return view('wireframe');
     }
+
 
      public function load($token)
     {
         Session::set('currentWire',$token);
         $id = (int)Session::get('id_user');
         $uri = strip_tags($token);
+        
+    
         $save = Save::where('user_id','=',$id)->where('uri','=',$uri)->first();
         $save->wireframe = html_entity_decode($save->wireframe);
-       
+
         return view('load', compact(['save',$save->wireframe,'uri',$uri]));
-       
-    
+        
+
     }
 
     public function proto()
@@ -50,6 +54,7 @@ class HomeController extends Controller
         $id = (int)Session::get('id_user');
         $uri= strip_tags(Session::get('currentWire'));
         $save = Save::where('user_id','=',$id)->get();
+
       
         // $save->wireframe = html_entity_decode($save->wireframe);
        
