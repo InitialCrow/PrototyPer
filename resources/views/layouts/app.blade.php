@@ -18,6 +18,7 @@
     <link href="/css/customBar.css" rel="stylesheet">
     <link rel='stylesheet' href='/js/spectrum/spectrum.css' />
     <link href="/css/grid.css" rel="stylesheet">
+    <link href="/css/viewer.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
 
     <!-- Scripts -->

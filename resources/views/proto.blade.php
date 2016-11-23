@@ -19,7 +19,7 @@
                  
                     </iframe> -->
                      <div class= "panel-work">
-                        <?php  echo $save->wireframe;?>
+                        
                     </div>
                     {{ csrf_field() }}
             </form>
@@ -27,6 +27,8 @@
         </div>
     </div>
 </div>
+            @include('partial.protoViewer')
+
 
 @endsection
 @section('script')

@@ -49,10 +49,11 @@ class HomeController extends Controller
     {
         $id = (int)Session::get('id_user');
         $uri= strip_tags(Session::get('currentWire'));
-        $save = Save::where('user_id','=',$id)->where('uri','=',$uri)->first();
-        $save->wireframe = html_entity_decode($save->wireframe);
+        $save = Save::where('user_id','=',$id)->get();
+      
+        // $save->wireframe = html_entity_decode($save->wireframe);
        
-        return view('proto', compact(['save',$save->wireframe,'uri',$uri]));
+        return view('proto', compact(['save',$save,'uri',$uri]));
        
     
     }

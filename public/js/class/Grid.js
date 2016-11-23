@@ -29,7 +29,7 @@ Grid.prototype.init = function(elem){
 		self.lineSpace += self.space;
 		
 	}
-	$elem.append(grid);
+	$elem.prepend(grid);
 
 	
 

@@ -19,11 +19,13 @@ class WireframeController extends Controller
     public function post_save(Request $request)
     {
        $wireframe =  htmlentities(trim($_POST['wireframe']));// warning check laravel native method before
+       $title =  htmlentities(trim($_POST['title']));
        $token = $_POST['token'];
        
        $save =  new Save;
        $save->timestamps = false;
        $save->user_id = 1;
+       $save->title = $title;
        $save->uri = strip_tags($token);
        $save->wireframe = $wireframe;
        $save->save();
@@ -32,11 +34,11 @@ class WireframeController extends Controller
     public function post_updateSave()
     { //ajax request
          $wireframe =  htmlentities(trim($_POST['wireframe']));
-       
+         $title =  htmlentities(trim($_POST['title']));
          $id = (int)Session::get('id_user');
          $token = strip_tags(Session::get('currentWire'));
        
-         $save = Save::where('user_id', $id)->where('uri',$token)->update(['wireframe'=>$wireframe]);
+         $save = Save::where('user_id', $id)->where('uri',$token)->update(['wireframe'=>$wireframe, 'title'=>$title]);
     
          return;
     }

@@ -1,0 +1,19 @@
+/* put custom viewer css here*/
+.viewer{
+	position: fixed;
+	bottom: 0;
+	padding: 20px 0;
+	background-color: #333;
+	
+}
+
+
+.viewer .frame{
+
+	list-style: none;
+	display: inline-block;
+	background-color: white;
+	padding: 15px;
+}
+
+

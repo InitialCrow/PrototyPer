@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 Route::any('/load/{token}', 'HomeController@load');
-Route::any('/proto/{token}', 'HomeController@proto');
+Route::any('/proto', 'HomeController@proto');
 
 Route::any('/saveWire', 'WireframeController@post_save');
 

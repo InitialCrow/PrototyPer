@@ -34,6 +34,8 @@
 			this.edit(self.family.edit.name);
 			this.save();
 			this.export();
+			
+
 		},
 		initGrid : function(){
 			// console.log(self.family.grid)
@@ -225,12 +227,13 @@
 		draw : function(){
 			var $panel = $('.home-container .panel');
 			var  $iframe = $('.panel-work');
+			
 
-			if( $iframe.last().attr('class') !== 'gridRow' && $iframe.last().attr('class') !== 'gridLine' ){
-				
+			if( $iframe.children().last().attr('class') == 'gridRow' || $iframe.children().last().attr('class') == 'gridLine' ){
 				var classIncrement=0;
 			}
 			else{
+
 				var $classname = $iframe.children().last().attr('class');
 
 				var matches = $classname.match(/\d+/g);
@@ -536,11 +539,11 @@
 			var $form = $('.save-form');
 			var $wireframe = null;
 			var token = null;
-			
+			var title = null;
 			$saveBtn.on('click', function(evt){
 
 				
-				
+				title = prompt('name your artwork');
 				$form.submit();
 
 				
@@ -563,7 +566,7 @@
 							
 							url: $form.attr('action'),
 							method : $form.attr('method'),
-							data : {wireframe : $wireframe, token: token},	
+							data : {wireframe : $wireframe, token: token, title: title},	
 							success : function(res){
 								window.location.href = 'load/'+token;
 								
@@ -578,7 +581,7 @@
 							
 							url: $form.attr('action'),
 							method : $form.attr('method'),
-							data : {wireframe : $wireframe},	
+							data : {wireframe : $wireframe, title:title},	
 							success : function(res){
 								
 								console.log('wireframe->saved!');

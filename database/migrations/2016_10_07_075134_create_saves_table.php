@@ -16,6 +16,7 @@ class CreateSavesTable extends Migration
          Schema::create('saves', function (Blueprint $table) {
             $table->increments('id');
             $table->string('uri');
+            $table->string('title');
             $table->text('wireframe');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
