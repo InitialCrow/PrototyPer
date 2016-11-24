@@ -15,5 +15,14 @@
 	background-color: white;
 	padding: 15px;
 }
+.viewer .frame-list{
+	vertical-align: top;
+	display: inline-block;
+}
+.viewer .viewer-modal{
+	display: inline-block;
+
+	float: right;
+}
 
 

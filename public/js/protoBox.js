@@ -1,6 +1,12 @@
 (function(ctx, $){
 	var protoBox = {
 		box : new ToolBox('protoBox'),
+		viewer : {
+			target1 : sessionStorage.getItem('wireframe_selected1'),
+			target2 : sessionStorage.getItem('wireframe_selected2'),
+			target2Content : sessionStorage.getItem('wireframe_selected2_content'),
+			showedTarget :sessionStorage.getItem('wireframe_dest'),
+		},
 		family :{
 			spot : new Spot(),
 			edit : new Edit(),
@@ -13,6 +19,8 @@
 			//enable selectable tools
 			this.select();
 			this.hotspot();
+			this.preshot();
+			this.execViewFunc();
 			// this.edit(self.family.edit.name);
 		},
 		select : function(){
@@ -33,187 +41,77 @@
 			
 			});		
 		},
-		
-		// edit : function(editFamilyName){
-		// 	var $iframe = $('.panel-work');
-		// 	var $elem = null;
-		// 	var mouseMovePos = {};
-		
-		// 	var selected = false;
-		// 	var resizing = false;
+		preshot: function(){
+			var $viewerModal = $('.viewer-modal');
+			console.log(self.viewer.target1);
+			if(self.viewer.target1 !== null && self.viewer.target1 !== undefined){
+				$viewerModal.append('<p> target 1 selected ->'+self.viewer.target1+'</p>')
+			}
+			if(self.viewer.target2 !== null && self.viewer.target2 !== undefined){
+				$viewerModal.append('<p> target 2 selected ->'+self.viewer.target2+'</p>')
+				self.family.spot.options($viewerModal, self.viewer.target2);
+			}
 
-		// 	var moveMode = false;
-		// 	var resizeMode = false;
 
-		// 	var resizeTop = null;
-
-		// 	var elemLoaded = new CustomEvent(
-		// 		"elemLoaded", 
-		// 		{
-		// 			detail: {
-		// 				message: "execute when $elem is loaded",
-		// 				time: new Date(),
-		// 			},
-		// 			bubbles: true,
-		// 			cancelable: true
-		// 		}
-		// 	);
-		// 	$iframe.on('mouseover',function(evt){
-		// 		evt.preventDefault();
-		// 		if(self.selected.family !== null){
-		// 			var $classname = $(evt.target).attr('class');
-					
-		// 			if($classname!== 'panel-work' && self.selected.family.name === editFamilyName){
-		// 				$elem = $('.'+$classname);
-		// 				$elem[0].dispatchEvent(elemLoaded);
-		// 			}
-		// 		}
+		},
+		execViewFunc : function(){
+			if(self.viewer.showedTarget !== null){
 				
-		// 	})
-		// 	document.addEventListener('elemLoaded',function(){
-
-		// 		$elem.on('mouseleave',function(evt){
-					
-		// 			if($elem.attr('class')!== 'panel-work'){
-		// 				$elem.css({
-		// 					'border-color':'inherit',
-							
-		// 				});
-		// 			}
-		// 		})
-		// 		$elem.on('mousedown', function(evt){
-		// 			selected = true;
-		// 			if(self.selected.family.tool === 'remove-tool'){
-
-		// 				self.selected.tool = new Remove();
-		// 				self.selected.tool.active = true;
-		// 				self.selected.tool.remove(this);
-		// 				self.selected.family.tool = null;
-		// 				self.selected.tool = null;
-		// 				return;
-						
-		// 			}
-					
-		// 		});
-		// 		$iframe.on('mousemove',function(evt){
-		// 			if(moveMode === true){
-		// 				resizeMode = false;
-		// 				self.selected.family.move($elem, mouseMovePos);
-					
-		// 			}
-		// 			if(resizeMode === true){
-		// 				mouseMovePos.x =  evt.pageX-$elem.offset().left
-		// 				mouseMovePos.y = evt.pageY-$elem.offset().top
-
-		// 				moveMode = false;
-		// 				if(resizeTop === true){
-		// 					self.selected.family.resizeTop($elem, mouseMovePos);
-		// 				}
-		// 				else{
-		// 					self.selected.family.resizeLeft($elem, mouseMovePos);
-		// 				}
-		// 				return
-		// 			}
-		// 			if(selected === true && resizing === false){
-		// 				mouseMovePos.x =  evt.pageX-$(this).offset().left
-		// 				mouseMovePos.y = evt.pageY-$(this).offset().top
-		// 				moveMode = true;
-		// 				resizeMode = false;
-		// 				return;
-		// 			}
-		// 			if((evt.offsetY < parseInt($elem.css('borderRightWidth'))*8 && evt.offsetY > -parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
-		// 				resizing = true;
-		// 				self.selected.family.hovering($elem, 'red','s-resize');
-		// 				if(selected === true){
-		// 					resizeMode = true;
-		// 					resizeTop = true;
-		// 				}
-		// 				return;	
-		// 			}
-		// 			else{
-		// 				if($elem.is(':hover')){
-		// 					$elem.css({
-		// 						'border-color':'red',
-		// 						'cursor':'pointer',
-		// 					});
-		// 					resizing = false;
-		// 					resizeMode= false;
-		// 				}	
-		// 			}
-		// 			if((evt.offsetY >$elem.outerHeight()-parseInt($elem.css('borderRightWidth'))*8 && evt.offsetY <$elem.outerHeight()+parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
-		// 				resizing = true;
-		// 				self.selected.family.hovering($elem, 'red','n-resize');
-		// 				if(selected === true ){
-		// 					resizeMode = true;
-		// 					resizeTop = true;
-		// 				}
-		// 				return;
-					
-		// 			}
-		// 			if((evt.offsetX <parseInt($elem.css('borderRightWidth'))*8 && evt.offsetX > -parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
-		// 				resizing = true;
-		// 				self.selected.family.hovering($elem, 'red','e-resize');
-		// 				if(selected === true){
-		// 					resizeMode = true;
-		// 					resizeTop = false;
-
-		// 				}
-		// 				return;
-		// 			}
-		// 			if((evt.offsetX > $elem.outerWidth()-parseInt($elem.css('borderRightWidth'))*8 &&  +parseInt($elem.css('borderRightWidth'))*2) && $elem.is(':hover')){
-		// 				resizing = true;
-		// 				self.selected.family.hovering($elem, 'red','w-resize');
-		// 				if(selected === true ){
-		// 					resizeMode = true;
-		// 					resizeTop = false;
-		// 				}
-		// 				return;
-		// 			}
-		// 		});
-		// 		$iframe.on('mouseup', function(evt){
-		// 			if(selected === true){
-						
-		// 				mouseMovePos.x = null;
-		// 				mouseMovePos.y = null;
-		// 				resizing = false;
-		// 				moveMode =false;
-		// 				resizeMode = false;
-						
-		// 				selected = false;
-		// 			}
-		// 			self.selected.tool.active = false;
-		// 			return;
-		// 		});
-		// 	});
-		// },
+				self.family.spot.show(self.viewer.target1,self.viewer.target2Content, 'panel-work' )
+			}
+		},
 		hotspot:function(){
 			var $iframe = $('.panel-work');
-			var target = [];
+			var $frame = $('.frame');
+		
 			var mousePos = {};
 			$iframe.on('mousedown',function(evt){
+			
+				if(self.family.spot.showedOption === true && evt.button === 2 ){
+					self.viewer.showedTarget = evt.target.className;
+					sessionStorage.setItem('wireframe_dest', evt.target.className );
+					self.family.spot.showedOption =false;
+
+				}
 				if(self.selected.family !== null){
+
 					if(self.selected.family.tool !== null ){
 					
 						mousePos.x = evt.pageX-$(this).offset().left ;
 						mousePos.y = evt.pageY-$(this).offset().top ;
-						if(target.length === 2 ){
-							target = [];
-						}
-						if($(evt.target).attr('data-option') === undefined && $(evt.target).attr('class') !== 'panel-work'){
-							
-							target.push(evt.target);
-						}
-
+						
+					
 						if(self.selected.family.tool === "hotspot-tool" ){
 							self.selected.tool = new Hotspot();
 							self.selected.tool.active = true;
-						
-							self.selected.tool.init(target, mousePos);
+					
+							if(evt.button === 2){
+								if(self.viewer.target1 === null || self.viewer.target1 === undefined){
+
+									self.selected.tool.init(evt.target, mousePos);
+								}
+								else{
+
+									self.selected.tool.drop(evt.target, mousePos);
+								}
+								
+							}
+							if(evt.button === 1){
+								sessionStorage.clear();
+							}
+
 						}
 					}
 				}
+
 				
 			});
+			$(document).on("contextmenu", ".panel-work", function(e){
+		
+				return false;
+			});
+		
+		
 
 		}
 	}
