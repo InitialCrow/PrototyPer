@@ -7,9 +7,11 @@
 			target2Content : sessionStorage.getItem('wireframe_selected2_content'),
 			showedTarget :sessionStorage.getItem('wireframe_dest'),
 		},
+		saveScript : null,	
 		family :{
 			spot : new Spot(),
 			edit : new Edit(),
+			export : new Export(),
 		},
 		selected : {
 			family : null,
@@ -21,6 +23,8 @@
 			this.hotspot();
 			this.preshot();
 			this.execViewFunc();
+			this.save();
+			this.export();
 			// this.edit(self.family.edit.name);
 		},
 		select : function(){
@@ -41,9 +45,66 @@
 			
 			});		
 		},
+		save : function(){
+
+			var $saveBtn = $('.save-btn');
+			var $form = $('.save-form');
+			$wireframe = $('.panel-work').html();
+			$saveBtn.on('click', function(evt){
+
+		
+				$form.submit();
+
+				
+				
+			});
+
+
+			$form.on('submit', function(evt){
+				evt.preventDefault();
+				
+				$.ajaxSetup({
+				    headers: {
+				        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+				    }
+				});
+				if($(this).attr('data-type') === 'save'){
+					$.ajax({
+						
+						url: $form.attr('action'),
+						method : $form.attr('method'),
+						data : {scripts : self.saveScript},	
+						success : function(res){
+							window.location.href = 'load/'+token;
+							
+						},
+						error : function(res){
+							alert('sorry bug ajax try update your browser or contact me');
+						}	
+					});
+				}
+				if($(this).attr('data-type') === 'export_html'){
+						$wireframe = "<div id='wireframeSnipet' style='margin: 0; position: relative; width: 100%; height: 100%;'>\n"+$wireframe+"\n \t\t</div>";
+						$.ajax({
+							
+							url: $form.attr('action'),
+							method : $form.attr('method'),
+							data : {wireframe : $wireframe},	
+							success : function(res){
+							
+								window.location.href = '/download/'+res;
+							},
+							error : function(res){
+								alert('sorry bug ajax try update your browser or contact me');
+							}	
+						});
+					}
+			});
+		},
 		preshot: function(){
 			var $viewerModal = $('.viewer-modal');
-			console.log(self.viewer.target1);
+			// var $scripts = $('.scriptsProto');
+			
 			if(self.viewer.target1 !== null && self.viewer.target1 !== undefined){
 				$viewerModal.append('<p> target 1 selected ->'+self.viewer.target1+'</p>')
 			}
@@ -51,13 +112,17 @@
 				$viewerModal.append('<p> target 2 selected ->'+self.viewer.target2+'</p>')
 				self.family.spot.options($viewerModal, self.viewer.target2);
 			}
+			// if($scripts !== null && $scripts !== undefined){
+			// 	self.saveScript = $scripts.html();
+			// }
 
 
 		},
 		execViewFunc : function(){
 			if(self.viewer.showedTarget !== null){
 				
-				self.family.spot.show(self.viewer.target1,self.viewer.target2Content, 'panel-work' )
+				self.saveScript = self.family.spot.show(self.viewer.target1,self.viewer.target2Content, 'panel-work' );
+
 			}
 		},
 		hotspot:function(){
@@ -110,9 +175,23 @@
 		
 				return false;
 			});
-		
+			
 		
 
+		},
+		export : function(){
+			new Clipboard('.clip');
+
+			document.addEventListener('exportEvent',function(){
+				if(self.selected.family.tool === "snipet-tool" ){
+					self.selected.tool = new Snipet()
+					self.selected.tool.init();
+				}
+				if(self.selected.family.tool === "html-tool" ){
+					self.selected.tool = new Html()
+					self.selected.tool.init();
+				}
+			});
 		}
 	}
 	ctx.protoBox = protoBox;

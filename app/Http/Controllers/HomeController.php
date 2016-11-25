@@ -43,7 +43,7 @@ class HomeController extends Controller
     
         $save = Save::where('user_id','=',$id)->where('uri','=',$uri)->first();
         $save->wireframe = html_entity_decode($save->wireframe);
-
+      
         return view('load', compact(['save',$save->wireframe,'uri',$uri]));
         
 

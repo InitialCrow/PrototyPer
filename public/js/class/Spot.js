@@ -38,10 +38,16 @@ Spot.prototype.show = function(target1, target2, dest){
 	var $target1 = $('.'+target1);
 	var target2 = target2;
 	var $dest = $('.'+dest);
+	var content = target2.replace(/"/g, "'");
+	var scripts_save = "$('."+target1+"').on('click', function(evt){$('#wireframeSnipet').append(\""+content+"\");});";
+
 
 
 	$target1.on('click', function(evt){
 		console.log(target2);	
 		$dest.append(target2);
+		
 	});
+	return scripts_save;
+	
 }

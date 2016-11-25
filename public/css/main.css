@@ -43,6 +43,9 @@
 
 	color : white;
 }
+.scriptProto{
+	display: none;
+}
 footer{
 
 	position: fixed;

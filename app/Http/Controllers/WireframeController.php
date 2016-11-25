@@ -24,7 +24,7 @@ class WireframeController extends Controller
        
        $save =  new Save;
        $save->timestamps = false;
-       $save->user_id = 1;
+       $save->user_id = (int)Session::get('id_user');
        $save->title = $title;
        $save->uri = strip_tags($token);
        $save->wireframe = $wireframe;

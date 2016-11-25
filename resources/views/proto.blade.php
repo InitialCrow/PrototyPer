@@ -11,7 +11,7 @@
     <div class="row home-container">     
         <div class="panel panel-default col-xs-9">
             <div class="panel-heading">Draw your WireFrame</div>
-            <form class='save-form' action="/updateSave" method="post" data-type='updateSave'>
+            <form class='save-form' action="/saveScripts" method="post" data-type='save'>
 
                 <div class="panel-body">
 
@@ -34,6 +34,8 @@
 
 @endsection
 @section('script')
+
+
 <script type="text/javascript">
     app.protoBox.init();
 </script>

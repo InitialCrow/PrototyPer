@@ -20,9 +20,10 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::any('/load/{token}', 'HomeController@load');
 Route::any('/proto', 'HomeController@proto');
-Route::any('/proto/{token}', 'ProtoController@load');
+Route::any('/proto/{token}', 'ProtoController@post_load');
 
 Route::any('/saveWire', 'WireframeController@post_save');
+Route::any('/saveScripts', 'ProtoController@post_save');
 
 Route::any('/updateSave', 'WireframeController@post_updateSave');
 Route::any('/export_html', 'DownloadController@post_exportHtml');

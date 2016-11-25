@@ -18,6 +18,8 @@ class CreateSavesTable extends Migration
             $table->string('uri');
             $table->string('title');
             $table->text('wireframe');
+            $table->text('scripts')->nullable();
+            
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
